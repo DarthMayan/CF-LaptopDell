@@ -1,0 +1,21 @@
+# ───────────────────────────────────────────────────────────────
+# Evidencia forense pesada — NO se sube a GitHub
+# Excede el límite de 100 MB/archivo de GitHub (y los 2 GB de Git LFS).
+# Los archivos están disponibles localmente para el análisis pericial;
+# su integridad queda documentada mediante los hashes en los .txt
+# (001-001-memoria-PH.txt y 001-003-LAptop-Pavana T3.E01.txt).
+# ───────────────────────────────────────────────────────────────
+*.mem
+*.E01
+*.Ex01
+*.dd
+*.raw
+*.img
+*.aff
+*.aff4
+*.vmem
+
+# Productos intermedios del análisis (salidas masivas de herramientas)
+*.bodyfile
+*.tmp
+~$*
