@@ -24,6 +24,9 @@
 | 003 | 2026-06-02 16:45 | Verificación de integridad (hashing MD5/SHA-1/SHA-256) de memoria volátil y 8 hives de registro | `verificar_integridad.py` (Python 3.13.6, hashlib) | memdump.mem + SAM/SECURITY/SYSTEM/SOFTWARE/DEFAULT + NTUSER/UsrClass (ken) + NTUSER (Default) | **9/9 PASS** — todos los MD5/SHA-1 coinciden con lo documentado. Reporte: `02_PRESERVACION/hashes/reporte_integridad.md` | Diego |
 | 004 | 2026-06-02 16:42 (inicio) | Verificación de integridad de la imagen de disco E01 (función nativa Verify) | FTK Imager 4.7.3.81 | `001-003-LAptop-Pavana T3.E01` (476,940 MB) | **En curso** (~34.6 MB/s, ETA ~3h47m). Captura en `04_EVIDENCIA/capturas/`. Resultado esperado MD5 `6ace19ab…` | Diego |
 
+| 005 | 2026-06-02 17:09 | Recálculo de hashes en vivo + captura de pantalla como respaldo visual auditable | `capturar_hashes.ps1` (PowerShell, Get-FileHash) | 9 indicios crudos | **9/9 PASS** corroborado visualmente. Evidencia: 2 capturas en `04_EVIDENCIA/capturas/` (ver `INDICE_CAPTURAS.md`) | Diego |
+| 006 | 2026-06-02 | Instalación de Volatility 3 para análisis de memoria | `pip install volatility3` → **Volatility 3 Framework 2.28.0** (+ pefile 2024.8.26) | — | Instalado OK; `vol --help` operativo (entry point en PATH) | Diego |
+
 > A partir de aquí se añade una fila por cada paso ejecutado. Cuando ejecutes un
 > comando, pega aquí el comando exacto, la versión de la herramienta y el hash/salida
 > relevante. Yo te ayudo a redactar cada entrada conforme avancemos.
