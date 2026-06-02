@@ -73,7 +73,41 @@ _[pendiente — síntesis de hallazgos, propósito y conclusiones principales, e
 ## 7. Análisis Técnico
 _(Explicación paso a paso, con glosario, capturas, tablas y referencias cruzadas a la bitácora.)_
 
-### 7.1 Integridad de la evidencia (obj. 9)  _[en curso — Fase 1]_
+### 7.1 Integridad de la evidencia (obj. 9)
+
+**Método.** Se aplicó verificación criptográfica por *hashing* (funciones MD5, SHA-1 y
+SHA-256), comparando el valor recalculado sobre la copia de trabajo contra el valor
+documentado en la cadena de custodia y en las hojas de hashes (`.txt`) que acompañan a
+cada indicio. Fundamento: **NIST SP 800-86** (uso de *hashing* para garantizar integridad)
+e **ISO/IEC 27037:2012** (preservación de evidencia digital). Una coincidencia de hash
+demuestra, con probabilidad de colisión despreciable, que la evidencia analizada es
+idéntica a la recibida y no fue alterada.
+
+**Herramientas.** `verificar_integridad.py` (Python 3.13.6, módulo `hashlib`) para los
+indicios crudos; **FTK Imager 4.7.3.81** (función *Verify Drive/Image*) para la imagen E01.
+
+**Resultado (indicios crudos).** Los 9 indicios verificados **coinciden** (MD5 y SHA-1)
+con sus valores documentados → **PASS**. Detalle completo en el Anexo A.
+
+| Indicio | Tamaño (bytes) | MD5 | Resultado |
+|---|---|---|---|
+| `memdump.mem` | 9,640,603,648 | a22059f3f9c41cc9a2b5e0427a1a6d5e | ✅ PASS |
+| `SAM` | 65,536 | 155ae6e43137de21cb9747d60dc451d3 | ✅ PASS |
+| `SECURITY` | 65,536 | 8a0b93d74ce72bc98d8b1fb2032488a8 | ✅ PASS |
+| `SYSTEM` | 14,417,920 | bcb0e4a82c3dd08d5fc4b9391cb22e26 | ✅ PASS |
+| `SOFTWARE` | 78,905,344 | 597f8f124d3e359ce8c663f62c72ed67 | ✅ PASS |
+| `DEFAULT` | 524,288 | 3e29a18af3b171bb942a60118cbfe57e | ✅ PASS |
+| `NTUSER.DAT` (ken) | 1,572,864 | d99efc55c8541eb2b1361b285d9605c3 | ✅ PASS |
+| `UsrClass.dat` (ken) | 3,932,160 | b6d3bead582e4f813a8db38540d98e1e | ✅ PASS |
+| `NTUSER.DAT` (Default) | 262,144 | ac9dea2283d8bd0f150662e41a871a3d | ✅ PASS |
+
+**Resultado (imagen E01).** Verificación con FTK Imager *en curso* al cierre de esta
+sección _[completar con MD5/SHA-1 recalculados y captura `verify_E01_ftk.png`]_. Valor
+esperado: MD5 `6ace19abd1a8d25589be07d68e9a7bcc`, SHA-1 `3b401352e1b6b60f73dd30dce97f12c85a2adae7`.
+
+**Conclusión del objetivo 9.** La integridad de la memoria volátil y de los hives de
+registro queda **certificada** (9/9 PASS). La de la imagen de disco se certifica al
+concluir la verificación de FTK Imager.
 ### 7.2 Identificación de equipo y SO (obj. 1)  _[pendiente]_
 ### 7.3 Disco: geometría y serie (obj. 2)  _[pendiente]_
 ### 7.4 Instalación del SO / titular (obj. 4)  _[pendiente]_
@@ -104,7 +138,7 @@ _[pendiente]_
 ---
 
 ## 11. Anexos
-- A. Reporte de hashes (`02_PRESERVACION/hashes/reporte_integridad.md`).
+- A. Reporte de hashes — verificación de integridad con triple algoritmo (MD5/SHA-1/SHA-256), 9/9 PASS. Archivo: `02_PRESERVACION/hashes/reporte_integridad.md`.
 - B. Salidas de Volatility (`02_PRESERVACION/`).
 - C. Capturas (`04_EVIDENCIA/capturas/`).
 - D. Bitácora pericial completa (`BITACORA_PERICIAL.md`).
