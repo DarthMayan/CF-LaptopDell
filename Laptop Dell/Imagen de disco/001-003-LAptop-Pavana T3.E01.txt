@@ -1,0 +1,39 @@
+﻿Created By AccessData® FTK® Imager 4.7.2.11 
+
+Case Information: 
+Acquired using: ADI4.7.2.11
+Case Number: 001
+Evidence Number: 003
+Unique description: HD - LAptop
+Examiner: FTK
+Notes: Imagen recabada una vez desmontado el disco. 11:08 230424
+
+--------------------------------------------------------------
+
+Information for F:\Caso-Pavana-Hidalgo\Laptop Dell\Imagen de disco\001-003-LAptop-Pavana T3:
+
+Physical Evidentiary Item (Source) Information:
+[Device Info]
+ Source Type: Physical
+[Drive Geometry]
+ Cylinders: 60,801
+ Tracks per Cylinder: 255
+ Sectors per Track: 63
+ Bytes per Sector: 512
+ Sector Count: 976,773,152
+[Physical Drive Information]
+ Drive Model: ST950042 0AS USB Device
+ Drive Serial Number: 5VJ8Z5ZN        
+ Drive Interface Type: USB
+ Removable drive: False
+ Source data size: 476940 MB
+ Sector count:    976773152
+[Computed Hashes]
+ MD5 checksum:    6ace19abd1a8d25589be07d68e9a7bcc
+ SHA1 checksum:   3b401352e1b6b60f73dd30dce97f12c85a2adae7
+
+Image Information:
+ Acquisition started:   Tue Apr 23 11:10:03 2024
+ Acquisition finished:  Tue Apr 23 12:54:33 2024
+ Segment list:
+  F:\Caso-Pavana-Hidalgo\Laptop Dell\Imagen de disco\001-003-LAptop-Pavana T3.E01
