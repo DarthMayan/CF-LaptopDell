@@ -101,14 +101,41 @@ con sus valores documentados → **PASS**. Detalle completo en el Anexo A.
 | `UsrClass.dat` (ken) | 3,932,160 | b6d3bead582e4f813a8db38540d98e1e | ✅ PASS |
 | `NTUSER.DAT` (Default) | 262,144 | ac9dea2283d8bd0f150662e41a871a3d | ✅ PASS |
 
-**Resultado (imagen E01).** Verificación con FTK Imager *en curso* al cierre de esta
-sección _[completar con MD5/SHA-1 recalculados y captura `verify_E01_ftk.png`]_. Valor
-esperado: MD5 `6ace19abd1a8d25589be07d68e9a7bcc`, SHA-1 `3b401352e1b6b60f73dd30dce97f12c85a2adae7`.
+**Resultado (imagen E01).** Verificación con FTK Imager 4.7.3.81 (*Verify Drive/Image*)
+sobre `001-003-LAptop-Pavana T3.E01` (976,773,152 sectores). Resultado **MATCH** en ambos
+algoritmos, **sin bad blocks**:
 
-**Conclusión del objetivo 9.** La integridad de la memoria volátil y de los hives de
-registro queda **certificada** (9/9 PASS). La de la imagen de disco se certifica al
-concluir la verificación de FTK Imager.
-### 7.2 Identificación de equipo y SO (obj. 1)  _[pendiente]_
+| Algoritmo | Computed | Stored / Report | Verify |
+|---|---|---|---|
+| MD5 | 6ace19abd1a8d25589be07d68e9a7bcc | 6ace19abd1a8d25589be07d68e9a7bcc | ✅ Match |
+| SHA-1 | 3b401352e1b6b60f73dd30dce97f12c85a2adae7 | 3b401352e1b6b60f73dd30dce97f12c85a2adae7 | ✅ Match |
+
+Evidencia: captura `04_EVIDENCIA/capturas/Captura de pantalla 2026-06-02 174510.png`.
+
+**Conclusión del objetivo 9.** La integridad de **todos** los indicios queda **certificada**:
+imagen de disco E01 (MD5/SHA-1 Match, sin bad blocks), memoria volátil y 8 hives de registro
+(9/9 PASS por triple algoritmo MD5/SHA-1/SHA-256). Método: hashing criptográfico conforme a
+NIST SP 800-86 e ISO/IEC 27037. **Objetivo 9 cubierto.**
+### 7.2 Identificación de equipo y SO (obj. 1)
+
+**Sistema operativo (vía memoria, Volatility 3 `windows.info`).** El análisis del volcado
+`memdump.mem` arroja:
+
+| Variable | Valor |
+|---|---|
+| Sistema operativo | Windows 10 (NT 10.0) |
+| Build | 19041 (versión 2004) — `Major/Minor 15.19041` |
+| Arquitectura | 64-bit (`Is64Bit: True`, `MachineType 34404` = x64) |
+| Tipo de producto | `NtProductWinNt` (estación de trabajo) |
+| Procesadores lógicos | 8 (`KeNumberProcessors`) |
+| Directorio del sistema | `C:\Windows` |
+| Hora del sistema al capturar | 2024-04-23 16:17:45 UTC (10:17:45 UTC−6) |
+
+> La marca/modelo/serie del **equipo** y el detalle del **disco** (obj. 2) se completan
+> con los hives SYSTEM/SOFTWARE y la imagen E01 _[pendiente: §7.3]_. La cadena de custodia
+> documenta el disco origen como **Seagate ST950042 0AS, S/N 5VJ8Z5ZN**.
+
+_Fuente: `02_PRESERVACION/memoria/01_info.txt`._
 ### 7.3 Disco: geometría y serie (obj. 2)  _[pendiente]_
 ### 7.4 Instalación del SO / titular (obj. 4)  _[pendiente]_
 ### 7.5 Actividad posterior a la adquisición (obj. 3)  _[pendiente]_

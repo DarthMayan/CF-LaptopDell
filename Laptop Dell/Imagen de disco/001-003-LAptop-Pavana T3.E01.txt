@@ -37,3 +37,11 @@ Image Information:
  Acquisition finished:  Tue Apr 23 12:54:33 2024
  Segment list:
   F:\Caso-Pavana-Hidalgo\Laptop Dell\Imagen de disco\001-003-LAptop-Pavana T3.E01
+ COMPUTED HASH :  6ace19abd1a8d25589be07d68e9a7bcc
+ COMPUTED HASH :  3b401352e1b6b60f73dd30dce97f12c85a2adae7
+
+Image Verification Results:
+ Verification started:  Tue Jun  2 16:48:35 2026
+ Verification finished: Tue Jun  2 17:39:01 2026
+ MD5 checksum:    6ace19abd1a8d25589be07d68e9a7bcc : verified
+ SHA1 checksum:   3b401352e1b6b60f73dd30dce97f12c85a2adae7 : verified
