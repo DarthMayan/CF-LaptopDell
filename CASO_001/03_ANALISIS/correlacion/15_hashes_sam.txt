@@ -1,0 +1,11 @@
+ControlSet actual : 001
+Bootkey (SysKey)  : 33b4b3f26ed0f7e28175eac2a1e3fce2
+Hashed BootKey    : 92e020e75aef3d2d0e1c2e2a013a3e1c
+
+Cuentas locales y hashes NT (formato user:rid:lmhash:nthash:::):
+------------------------------------------------------------------------------
+Administrador:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::  <-- contraseña VACÍA o no establecida
+Invitado:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::  <-- contraseña VACÍA o no establecida
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::  <-- contraseña VACÍA o no establecida
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:3d320a256111a327a9012542211125a1:::
+ken:1001:aad3b435b51404eeaad3b435b51404ee:f12c418083c05e3a7de78582e61f652d:::

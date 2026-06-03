@@ -140,7 +140,39 @@ _Fuente: `02_PRESERVACION/memoria/01_info.txt`._
 ### 7.4 Instalación del SO / titular (obj. 4)  _[pendiente]_
 ### 7.5 Actividad posterior a la adquisición (obj. 3)  _[pendiente]_
 ### 7.6 Línea de tiempo 20–24 abr 2024 (obj. 5)  _[pendiente]_
-### 7.7 Credenciales y cifrado / DPAPI (obj. 6)  _[pendiente]_
+### 7.7 Credenciales y cifrado / DPAPI (obj. 6)
+
+**Técnica empleada.** Extracción **offline** de los hashes NT desde los hives **SAM + SYSTEM**
+(integridad previamente certificada, §7.1). Procedimiento estándar: (1) cálculo del *bootkey*
+(SysKey) a partir de los *class names* de `SYSTEM\ControlSet001\Control\Lsa\{JD,Skew1,GBG,Data}`;
+(2) derivación de la *Hashed BootKey* (cifrado **AES**, propio de Windows 10 ≥ 1607); (3) descifrado
+del hash NT de cada cuenta (AES + DES con clave derivada del RID). Implementado en **Python puro**
+(`regipy` + `pycryptodome`) en el script reproducible `03_ANALISIS/correlacion/extraer_hashes_sam.py`.
+
+> **Nota metodológica (obj. 12 / cadena de herramientas).** Se intentó primero `impacket
+> secretsdump`, pero el antivirus del equipo de análisis lo eliminó (falso positivo: clasificado
+> como *hacktool*). Para no desactivar controles de seguridad, se desarrolló el extractor propio,
+> obteniendo el mismo resultado de forma auditable. Bootkey calculado: `33b4b3f26ed0f7e28175eac2a1e3fce2`.
+
+**Cuentas locales y hashes NT recuperados:**
+
+| Cuenta | RID | Hash NT | Observación |
+|---|---|---|---|
+| Administrador | 500 | 31d6cfe0d16ae931b73c59d7e0c089c0 | Sin contraseña (deshabilitada por defecto) |
+| Invitado | 501 | 31d6cfe0d16ae931b73c59d7e0c089c0 | Sin contraseña |
+| DefaultAccount | 503 | 31d6cfe0d16ae931b73c59d7e0c089c0 | Sin contraseña |
+| WDAGUtilityAccount | 504 | 3d320a256111a327a9012542211125a1 | Cuenta de Windows Defender Application Guard (password aleatorio del sistema) |
+| **ken** | **1001** | **f12c418083c05e3a7de78582e61f652d** | **Cuenta de usuario principal** |
+
+**Descifrado de contraseña.** Se aplicó un ataque de diccionario (4,215 candidatos comunes y
+temáticos) al hash de `ken` **sin éxito**; la contraseña no es trivial. La *recuperación de la
+credencial* (hash) ya cumple el objetivo; el descifrado completo requeriría un ataque mayor
+(hashcat modo 1000 con diccionario rockyou + reglas), recomendado como paso opcional.
+
+**DPAPI (documentos/secret​os cifrados).** El triage conserva las claves DPAPI del usuario `ken`
+(`Users/ken/Protect/S-1-5-21-1936453629-2262114833-2442330573-1001` y `Users/ken/Crypto`). Con la
+contraseña de `ken` (o su masterkey) podrían descifrarse secretos protegidos (contraseñas guardadas
+en navegador, credenciales). Queda como línea de análisis abierta. _Fuente: `15_hashes_sam.txt`._
 ### 7.8 Actividad de red (obj. 7)  _[preliminar — vía memoria]_
 
 **Fuente:** `vol windows.netscan` sobre `memdump.mem` (`02_PRESERVACION/red/06_netscan.txt`).
