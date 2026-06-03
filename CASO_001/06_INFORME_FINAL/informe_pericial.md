@@ -180,8 +180,54 @@ _Fuente: Autopsy 4.23.1, Data Sources → tabla de volúmenes._
 
 > El titular de la instalación (RegisteredOwner), fecha de instalación y nombre de equipo se
 > completarán con el registro (SOFTWARE/SYSTEM) vía Autopsy → OS Information _[pendiente]_.
-### 7.5 Actividad posterior a la adquisición (obj. 3)  _[pendiente]_
-### 7.6 Línea de tiempo 20–24 abr 2024 (obj. 5)  _[pendiente]_
+### 7.5 Actividad durante/posterior a la adquisición (obj. 3)
+
+**Hallazgo crítico (artefactos LNK / Recent Documents, Autopsy).** Dentro de la imagen del
+disco quedaron registrados accesos de Explorador, fechados **2024-04-23 10:12–10:13**, a la
+**carpeta del propio caso forense** desde una unidad externa **D:**:
+
+| LNK (acceso reciente) | Ruta destino | Fecha/hora |
+|---|---|---|
+| `TOSHIBA EXT (D).lnk` | `D:\` | 2024-04-23 10:12:12 |
+| `Caso-Pavana-Hidalgo.lnk` | `D:\Caso-Pavana-Hidalgo` | 2024-04-23 10:12:12 |
+| `Laptop Dell.lnk` | `D:\Caso-Pavana-Hidalgo\Laptop Dell` | 2024-04-23 10:13:04 |
+| `Triage.lnk` | `D:\Caso-Pavana-Hidalgo\Laptop Dell\Triage` | 2024-04-23 10:13:04 |
+| `Dump memoria.lnk` | `D:\Caso-Pavana-Hidalgo\Laptop Dell\Dump memoria` | 2024-04-23 10:13:23 |
+| `Imagen de disco.lnk` | `D:\Caso-Pavana-Hidalgo\Laptop Dell\Imagen de disco` | 2024-04-23 10:13:33 |
+
+Correlación: el dispositivo USB **Toshiba B301, S/N `20220817001348F`** (la **misma unidad de
+destino forense** declarada en la cadena de custodia) se conectó al equipo a las
+**2024-04-23 10:37:33** (§7.9/USB). El **volcado de memoria** se tomó a las **10:17** y la
+**imagen de disco** inició a las **11:10**.
+
+**Interpretación (obj. 3 y 12):** la estructura de carpetas del caso (`Caso-Pavana-Hidalgo\…\
+Triage`, `Dump memoria`, `Imagen de disco`) fue **navegada/creada en el sistema en vivo** antes
+de finalizar la adquisición, y esos artefactos quedaron **embebidos en la propia imagen**. Es
+decir, **sí existió actividad de manipulación sobre el sistema encendido durante el proceso de
+recolección** (montaje de la unidad de destino del perito y navegación del árbol de evidencia).
+Esto es esperable en una adquisición *en vivo*, pero **debe constar**: contradice una imagen
+"limpia" previa a toda interacción y es relevante para valorar la cadena de custodia (§7.12).
+
+### 7.6 Línea de tiempo 20–24 abr 2024 (obj. 5)
+
+Cronología reconstruida (registro, BAM, historial web, descargas, LNK; hora local UTC−6):
+
+| Fecha/hora | Evento |
+|---|---|
+| 2019-12-07 | Instalación base del SO (componentes Windows). |
+| **2024-04-21 16:21–16:31** | **Primer arranque/OOBE del perfil** (FirstLogonAnim, CloudExperienceHost) — alta del usuario `ken`. |
+| 2024-04-21 19:52–20:17 | Descarga e instalación de **Nmap 7.94** + **Npcap**; descarga de **Parrot Security 5.3 OVA**, **FileZilla**, **7-Zip**, **VirtualBox**. |
+| 2024-04-22 00:00–02:44 | Ejecución de **VirtualBox/VirtualBoxVM**; instalación de VirtualBox 7.0.14. |
+| 2024-04-22 11:39–12:02 | Búsquedas **"osint framework"**, **"censys"**; consulta en **Censys** del host **192.100.201.235** (servicio **RDP/3389**). |
+| 2024-04-22 11:28–17:31 | Instalación de **Opera**, **Brave** (modo Tor), **DuckDuckGo**; **RAV VPN/Endpoint**. |
+| 2024-04-22 20:58–21:06 | Búsquedas **"armerias en estados unidos"**, **"funda escuadra"**, **"canana"**, **"gabardina"**. |
+| 2024-04-22 23:11–23:24 | Conexión USB **SanDisk**; instalación **uTorrent Web**; uso de **cmd**, **mstsc** (RDP), **notepad**. |
+| **2024-04-23 08:35–09:05** | **Descarga masiva de archivos de nómina/personal** desde decenas de sitios .gob.mx (y .gov.co/.cl) hacia `C:\Users\ken\Documents`. |
+| 2024-04-23 09:50–10:16 | Conexión de **adaptador WiFi USB Ralink** y **memorias Verbatim/Lexar**. |
+| 2024-04-23 10:12–10:13 | Navegación de la **carpeta del caso forense en D:** (ver §7.5). |
+| 2024-04-23 10:17 / 11:10 | **Adquisición**: volcado de memoria / inicio de imagen de disco. |
+
+_Fuentes: `25_run_programs.csv`, `22_web_downloads.csv`, `21_web_history.csv`, `26_recent_documents.csv`, `23_usb_devices.csv`._
 ### 7.7 Credenciales y cifrado / DPAPI (obj. 6)
 
 **Técnica empleada.** Extracción **offline** de los hashes NT desde los hives **SAM + SYSTEM**
@@ -231,9 +277,30 @@ Hallazgos preliminares (pendiente correlación con `netstat`/artefactos de disco
 | **VPN/DNS de terceros** | `rsVPNSvc.exe` / `rsDNSSvc.exe` (ReasonLabs) activos. |
 
 > Las conexiones tienen *timestamps* del **22–23 de abril de 2024**, coherentes con el periodo de interés (obj. 5).
-### 7.9 Herramientas y artefactos de software (obj. 8)  _[preliminar — vía memoria]_
+### 7.9 Herramientas y artefactos de software (obj. 8)
 
-**Fuente:** `vol windows.cmdline` sobre `memdump.mem` (`02_PRESERVACION/procesos/05_cmdline.txt`).
+**Confirmación por disco (Autopsy — Installed/Run Programs, Web Downloads).** Además de lo visto
+en memoria, el disco confirma y amplía el conjunto de herramientas, con fechas de descarga/instalación
+en el periodo de interés (todas en el perfil de **ken**):
+
+| Herramienta | Categoría | Evidencia (fecha) |
+|---|---|---|
+| **Nmap 7.94 + Npcap 1.75** | Escaneo de red / captura de paquetes | Descarga `nmap-7.94-setup.exe` de nmap.org (04-21 19:52); instalado 04-22 01:54 |
+| **Parrot Security 5.3 (OVA)** | Distro de pentesting (en VM) | Descarga `Parrot-security-5.3_amd64.ova` de parrot.sh (04-21 19:57) |
+| **Oracle VirtualBox 7.0.14** | Virtualización (ejecutar la VM) | Instalado 04-22 02:44; `VirtualBoxVM.exe` ejecutado 04-22 00:00 |
+| **FileZilla 3.67** | Cliente FTP (transferencia) | Descargado 04-21; ejecutado 04-22 13:36 |
+| **RAV VPN / RAV Endpoint / Safer Web** | VPN + DNS de terceros | Instalados 04-23 05:23–05:29 |
+| **Tor** (proceso + Brave TorLauncher) | Anonimización | (memoria) |
+| **uTorrent Web** | P2P | `utweb_installer` 04-22 23:22 |
+| **Adaptador WiFi USB Ralink RT2870/RT3070** | Inalámbrico (monitor/inyección) | Conectado 04-23 09:50 |
+| Brave / Opera / DuckDuckGo / Edge | Navegadores | 04-22 |
+| **mstsc.exe** | Cliente RDP | Ejecutado 04-22 23:19 |
+
+_Fuentes: `24_installed_programs.csv`, `25_run_programs.csv`, `22_web_downloads.csv`, `23_usb_devices.csv`._
+
+---
+
+**Fuente (memoria):** `vol windows.cmdline` sobre `memdump.mem` (`02_PRESERVACION/procesos/05_cmdline.txt`).
 Todas atribuibles al usuario **ken**.
 
 | Herramienta | Proceso / PID | Ruta / argumentos | Propósito (preliminar) |
@@ -249,9 +316,79 @@ Todas atribuibles al usuario **ken**.
 > **acceso RDP entrante** configura un escenario técnico consistente con reconocimiento de
 > red y transferencia/ofuscación de datos. _Interpretación reservada hasta correlacionar con
 > disco (historial, archivos, prefetch) y artefactos adicionales._
-### 7.10 Seguimiento a personas (obj. 10)  _[pendiente]_
-### 7.11 Exfiltración / transmisión de información (obj. 11)  _[pendiente]_
-### 7.12 Inconsistencias en los indicios (obj. 12)  _[material preliminar en bitácora]_
+### 7.10 Seguimiento / recopilación sobre personas (obj. 10)
+
+La evidencia de disco muestra dos vertientes de actividad de inteligencia/recopilación:
+
+**a) Reconocimiento técnico (OSINT / escaneo).**
+- Búsquedas en Brave: **"osint framework"** (2024-04-22 11:39) y **"censys"** (11:51).
+- Uso de **Censys Search** (censys.io) para consultar el host **192.100.201.235**, revisando
+  específicamente su servicio **RDP (3389/TCP)** (2024-04-22 12:02) — reconocimiento de un
+  objetivo concreto con escritorio remoto expuesto.
+- Instalación/uso de **Nmap** y de un **adaptador WiFi USB Ralink RT2870/RT3070** (apto para
+  monitoreo/inyección inalámbrica) y descarga de **"Mastering Kali Linux Wireless Pentesting.pdf"**.
+
+**b) Recopilación masiva de datos personales (PII) de terceros.**
+- El **2024-04-23 08:35–09:05** se descargaron **decenas de archivos de nómina y de personal**
+  (`.xlsx`, `.xls`, `.docx`) desde numerosos portales gubernamentales e institucionales
+  (tlajomulco, edomex, condusef, monterrey, guadalajara, puebla, **hidalgo.gob.mx**, cdmx, seph,
+  banxico, scjn; y .gov.co/.cl), guardados en `C:\Users\ken\Documents` (p. ej.
+  *"Copia-de-nomina-de-trabajadores.xlsx"*, *"Layout Dispersión de Nómina df.xlsm"*,
+  *"3er_trimestre_cuentas_de_nomina_2022.xlsx"*). La búsqueda se hizo con operadores
+  **`filetype:xlsx` / `filetype:docx`** en Bing — recolección dirigida de documentos con datos
+  de empleados (nombres, percepciones, cuentas de dispersión).
+
+> Estas dos vertientes (reconocimiento de hosts/red + acopio dirigido de datos de personas)
+> son **consistentes con actividad de seguimiento/perfilamiento**. _Observación adicional:_ se
+> registraron búsquedas de **"armerias en estados unidos"**, **"funda escuadra"**, **"canana"**
+> y **"gabardina"** (2024-04-22 21:00) que, por su naturaleza, se documentan para conocimiento
+> de la autoridad, reservando su interpretación.
+
+### 7.11 Exfiltración / transmisión de información (obj. 11)
+
+Se identifican **múltiples vectores de salida de datos** disponibles y en uso en el periodo:
+
+| Vector | Evidencia |
+|---|---|
+| **Almacenamiento USB** | Memorias **Lexar JumpDrive 16 GB** (S/N AA218R9MXJHI5V5E, 04-22), **SanDisk** (04-22 23:11), **Verbatim Flash Drive** (S/N 700031C37113A349, 04-23 10:15); además USB **Ventoy (E:)** con archivo `vpn.txt`. |
+| **FTP** | **FileZilla 3.67** descargado y ejecutado (cliente FTP, 04-22 13:36) — transferencia de archivos. |
+| **P2P** | **uTorrent Web** instalado y activo (memoria + disco). |
+| **Nube** | **OneDrive** en ejecución (`OneDrive.exe`, 04-22 16:32). |
+| **Canales anonimizados** | **Tor** (proceso + Brave) y **RAV VPN** activos (§7.8) — ofuscan el origen/destino del tráfico. |
+
+Los **archivos de nómina/personal** descargados (§7.10) quedaron **almacenados localmente en
+`C:\Users\ken\Documents`**, disponibles para su transferencia por cualquiera de los vectores
+anteriores. La presencia de `E:\vpn.txt` (en USB Ventoy) sugiere credenciales/listas de VPN
+guardadas en medio extraíble.
+
+> **Demostración técnica:** existe evidencia clara de **capacidad y preparación de exfiltración**
+> (medios USB conectados, cliente FTP, P2P, nube, canales anonimizados) y de **acopio de datos de
+> terceros**. La confirmación de una transferencia *consumada* de un archivo específico hacia un
+> destino externo requeriría correlación adicional (logs de FileZilla, contenido de los USB, o
+> capturas de red), que se señala como línea de profundización.
+
+### 7.12 Inconsistencias en los indicios (obj. 12)
+
+1. **Disco:** la cadena de custodia declara **500 GB / 38,913 cilindros**, pero la imagen reporta
+   **~465 GiB (976,773,152 sectores) / 60,801 cilindros** y tipo "USB Device". (El conteo de
+   sectores sí es coherente entre FTK y Autopsy.)
+2. **Fecha de adquisición de memoria:** la custodia indica **"24-Abril-2014 10:26"** (año 2014
+   erróneo); la evidencia técnica (Volatility SystemTime + *Created Time* del `.mem`) sitúa la
+   captura el **23-abril-2024 ~10:17**.
+3. **Fecha de adquisición de disco:** custodia **15-Abril-2024 11:10** vs. cabecera/notas FTK del
+   `.E01` **23-Abril-2024 11:10** (coincide la hora, discrepa el día).
+4. **Hashes de la copia forense en blanco** en el formato de cadena de custodia (aunque la
+   integridad sí se verificó: E01 *Match* y 9/9 hives PASS).
+5. **Herramienta:** verificación con **Exterro FTK Imager 4.7.3.81** vs. adquisición con
+   **AccessData FTK Imager 4.7.2.11**.
+6. **Actividad peri-adquisición embebida en la imagen** (§7.5): la carpeta del caso (`D:\Caso-
+   Pavana-Hidalgo\…`) fue navegada en el sistema en vivo 2024-04-23 10:12–10:13, antes de concluir
+   la recolección.
+7. **Segundo SID de usuario** ajeno al equipo (`S-1-5-21-3933942852-973373972-2766786355-1032`),
+   sin cuenta local correspondiente en el SAM (§7.4).
+
+_Fundamento: buenas prácticas NIST SP 800-86, ISO/IEC 27037/27042, ENFSI/SWGDE; se documentan
+sin alterar la evidencia._
 
 ---
 
