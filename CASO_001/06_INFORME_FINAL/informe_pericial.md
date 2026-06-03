@@ -131,11 +131,22 @@ NIST SP 800-86 e ISO/IEC 27037. **Objetivo 9 cubierto.**
 | Directorio del sistema | `C:\Windows` |
 | Hora del sistema al capturar | 2024-04-23 16:17:45 UTC (10:17:45 UTC−6) |
 
-> La marca/modelo/serie del **equipo** y el detalle del **disco** (obj. 2) se completan
-> con los hives SYSTEM/SOFTWARE y la imagen E01 _[pendiente: §7.3]_. La cadena de custodia
-> documenta el disco origen como **Seagate ST950042 0AS, S/N 5VJ8Z5ZN**.
+**Identificación del equipo (Autopsy → OS Information, sobre el registro del disco):**
 
-_Fuente: `02_PRESERVACION/memoria/01_info.txt`._
+| Dato | Valor |
+|---|---|
+| Nombre del equipo (hostname) | **DESKTOP-2TQHS9Q** |
+| Edición | **Windows 10 Pro** (x64 / AMD64) |
+| Titular registrado (Owner) | **ken** |
+| Product ID | 00331-10000-00001-AA087 |
+| Directorio del sistema | C:\Windows |
+
+> El disco origen, según cadena de custodia, es **Seagate ST950042 0AS, S/N 5VJ8Z5ZN**
+> (ver §7.3). La fecha de instalación del SO se confirmará con el registro (SOFTWARE
+> InstallDate) _[pendiente]_.
+
+_Fuentes: `02_PRESERVACION/memoria/01_info.txt` y Autopsy OS Information
+(`03_ANALISIS/autopsy_export/27_os_info.csv`)._
 ### 7.3 Disco: geometría y particiones (obj. 2)
 
 **Disco origen** (cadena de custodia + cabecera del E01): Seagate **ST950042 0AS**, S/N
