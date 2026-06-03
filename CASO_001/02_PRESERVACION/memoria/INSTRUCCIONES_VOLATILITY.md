@@ -34,12 +34,19 @@ pip install -e .
 
 ---
 
-## Paso 1 — Variables de ruta (pega esto primero en PowerShell)
+## Paso 1 — Variables de ruta + codificación (pega esto primero en PowerShell)
 
 ```powershell
 $IMG = "C:\Users\diego\Desktop\Clases\Forense\Examen Final\Laptop Dell\Dump memoria\memdump.mem"
 $OUT = "C:\Users\diego\Desktop\Clases\Forense\Examen Final\CASO_001"
+$env:PYTHONUTF8 = "1"    # <-- OBLIGATORIO: evita UnicodeEncodeError al redirigir con >
+Test-Path $IMG           # debe imprimir True
 ```
+
+> **Por qué `$env:PYTHONUTF8=1`:** al redirigir con `>`, Python intenta codificar la salida
+> en cp1252 (locale de Windows) y revienta si un nombre de proceso trae un carácter no
+> representable (`UnicodeEncodeError: 'charmap' codec can't encode character '�'`).
+> Forzar UTF-8 lo resuelve. Es lo que hizo fallar a `pstree`/`pslist` la primera vez.
 
 ---
 

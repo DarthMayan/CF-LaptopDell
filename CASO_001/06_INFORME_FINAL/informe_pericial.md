@@ -141,8 +141,40 @@ _Fuente: `02_PRESERVACION/memoria/01_info.txt`._
 ### 7.5 Actividad posterior a la adquisición (obj. 3)  _[pendiente]_
 ### 7.6 Línea de tiempo 20–24 abr 2024 (obj. 5)  _[pendiente]_
 ### 7.7 Credenciales y cifrado / DPAPI (obj. 6)  _[pendiente]_
-### 7.8 Actividad de red (obj. 7)  _[pendiente]_
-### 7.9 Herramientas y artefactos de software (obj. 8)  _[pendiente]_
+### 7.8 Actividad de red (obj. 7)  _[preliminar — vía memoria]_
+
+**Fuente:** `vol windows.netscan` sobre `memdump.mem` (`02_PRESERVACION/red/06_netscan.txt`).
+Dirección IP del equipo: **192.168.145.72** (segmento LAN 192.168.145.0/24).
+
+Hallazgos preliminares (pendiente correlación con `netstat`/artefactos de disco):
+
+| Categoría | Evidencia (proceso / PID / conexión) |
+|---|---|
+| **Anonimización (Tor)** | `tor-0.4.8.10` (PID 88640) con circuitos a *guard relays* 54.39.234.91:9001 y 18.18.82.17:9001 (puerto OR 9001); puertos locales de control/SOCKS 40357–40363. |
+| **P2P / BitTorrent** | `utweb.exe` (PID 106556) hacia peers externos (p. ej. 89.210.5.145, 194.110.13.123, 89.149.24.63). |
+| **RDP entrante** | `svchost.exe` (PID 1072) escuchando en 3389 y **conexión ESTABLISHED entrante** 192.168.145.65 → 192.168.145.72:3389 (acceso remoto al equipo). |
+| **Navegadores** | `opera.exe` (PID 77380), `brave.exe` (PID 71248), `msedge.exe` a múltiples destinos 443. |
+| **VPN/DNS de terceros** | `rsVPNSvc.exe` / `rsDNSSvc.exe` (ReasonLabs) activos. |
+
+> Las conexiones tienen *timestamps* del **22–23 de abril de 2024**, coherentes con el periodo de interés (obj. 5).
+### 7.9 Herramientas y artefactos de software (obj. 8)  _[preliminar — vía memoria]_
+
+**Fuente:** `vol windows.cmdline` sobre `memdump.mem` (`02_PRESERVACION/procesos/05_cmdline.txt`).
+Todas atribuibles al usuario **ken**.
+
+| Herramienta | Proceso / PID | Ruta / argumentos | Propósito (preliminar) |
+|---|---|---|---|
+| **Nmap / Zenmap** | `pythonw.exe` / 68800 | `C:\Program Files (x86)\Nmap\zenmap\bin\pythonw.exe -c "from zenmapGUI.App import run;run()"` | Escaneo de red / reconocimiento de hosts |
+| **uTorrent Web** | `utweb.exe` / 106556 (+ `helper.exe`) | `C:\Users\ken\AppData\Roaming\uTorrent Web\utweb.exe /RUNONSTARTUP` | Transferencia P2P |
+| **RAV VPN (ReasonLabs)** | `rsVPNSvc.exe` / 104776, `rsVPNClientSvc.exe`, `rsDNSClientSvc.exe`, `rsEngineSvc.exe` | `C:\Program Files\ReasonLabs\VPN\...` | VPN + DNS de terceros (ofuscación de tráfico) |
+| **Tor** | `tor-0.4.8.10-w` / 88640; `brave.exe` TorLauncher | proceso Tor + modo Tor de Brave | Anonimización |
+| **Navegadores** | Edge, Brave, Opera | rutas estándar | Navegación (idioma es-419) |
+
+> **Relevancia para obj. 10 (seguimiento) y 11 (exfiltración):** la presencia conjunta de
+> **Nmap** (reconocimiento), **uTorrent** (transferencia), **VPN + Tor** (ofuscación) y un
+> **acceso RDP entrante** configura un escenario técnico consistente con reconocimiento de
+> red y transferencia/ofuscación de datos. _Interpretación reservada hasta correlacionar con
+> disco (historial, archivos, prefetch) y artefactos adicionales._
 ### 7.10 Seguimiento a personas (obj. 10)  _[pendiente]_
 ### 7.11 Exfiltración / transmisión de información (obj. 11)  _[pendiente]_
 ### 7.12 Inconsistencias en los indicios (obj. 12)  _[material preliminar en bitácora]_
