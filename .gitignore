@@ -19,3 +19,12 @@
 *.bodyfile
 *.tmp
 ~$*
+
+# ───────────────────────────────────────────────────────────────
+# Caso de Autopsy — base de datos pesada, NO se sube a GitHub.
+# Solo versionamos los reportes/CSV exportados manualmente.
+# ───────────────────────────────────────────────────────────────
+CASO_001/03_ANALISIS/CASO_001-Pavana-Hidalgo/
+*.aut
+autopsy.db*
+ModuleOutput/
