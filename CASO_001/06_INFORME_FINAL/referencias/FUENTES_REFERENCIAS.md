@@ -1,7 +1,18 @@
 # Fuentes de las referencias — dónde descargarlas
 
-Coloca aquí los **PDF** de los artículos científicos (y, si quieres, copias de las normas) para
-adjuntarlos al entregable. Sugerencia de nombres entre paréntesis.
+## Archivos adjuntos en esta carpeta (entregados)
+- ✅ `DPAPI.pdf` — Bursztein, Picod & Audebert (2010), WOOT '10. **Paper completo** (acceso libre).
+- ✅ `Impacts of increasing volume of digital forensic data... - ScienceDirect.pdf` — Quick & Choo
+  (2014). *Impresión de la página de ScienceDirect (cita + resumen + DOI); texto completo de pago.*
+- ✅ `Memory forensics_ The path forward - ScienceDirect.pdf` — Case & Richard (2017).
+  *Impresión de la página de ScienceDirect (cita + resumen + DOI); texto completo de pago.*
+
+> Para efectos de **sustento/cita**, la referencia + resumen + DOI son suficientes; el artículo de
+> acceso libre (Bursztein) —el más pertinente al caso— se adjunta completo.
+
+---
+
+Fuentes originales para descargar (por si se quieren actualizar):
 
 ## Artículos científicos (papers)
 
