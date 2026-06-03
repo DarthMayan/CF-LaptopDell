@@ -47,6 +47,9 @@ Anexos · Firma y Credenciales — **todas redactadas**.
 - ✅ LFPDPPP
 - ✅ **3 papers** (mín. 2): Quick & Choo 2014; Case & Richard 2017; **Bursztein, Picod & Audebert 2010**
   (recuperación offline de credenciales/DPAPI — directamente ligado a §7.7).
+- ✅ **Fundamento jurídico** (§3.2): base legal (Const. 16/21, CNPP 272/227-228), límites de datos
+  personales/comunicaciones privadas (CNPP 252) y relevancia penal (CPF 211 bis, LFPDPPP 67-69).
+  ⚠️ *Cotejar numeración de artículos con el texto vigente antes de entregar.*
 
 ## 5. Requisitos de entrega
 - [ ] **Informe final en PDF** (`informe_pericial.md` → PDF) — *en proceso*
