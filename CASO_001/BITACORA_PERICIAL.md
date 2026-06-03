@@ -56,6 +56,7 @@
 | 027 | 2026-06-03 | Verificación del 2º SID de usuario | regipy → `ProfileList` (hive SOFTWARE) | software | El único perfil humano es **ken (…-1001)**; el SID `…-3933942852-…-1032` **no está en ProfileList ni SAM** → corresponde a **propiedad de archivos de otro sistema**. | Diego/Claude |
 | 028 | 2026-06-03 | Revisión de archivos cifrados (Encryption Suspected) | Autopsy → CSV `28_encryption_suspected.csv` | E01 | Los 6 son **falsos positivos** (instalador MSI, caché de iconos, DBs de DuckDuckGo). **No hay documentos cifrados del usuario.** | Diego/Claude |
 | 029 | 2026-06-03 | Descifrado DPAPI de credenciales de navegador | `dpapick3` + pycryptodome (`descifrar_dpapi_navegador.py`) | masterkey ken + Local State/Login Data (Brave, Edge) | **Masterkey descifrada con `MyPassword`**; claves AES de Brave y Edge obtenidas. **Tablas `logins` vacías (0 contraseñas guardadas).** Resultado negativo documentado. Salida: `16_credenciales_navegador.txt`. | Diego/Claude |
+| 030 | 2026-06-03 | Timeline gráfico (Snapshot) | Autopsy 4.23.1 — Timeline → Snapshot Report | E01 | Generado y copiado a `03_ANALISIS/timeline/timeline_autopsy_snapshot.png`. **Hallazgos nuevos (obj.10):** uso de **shodan.io** (13 visitas) y consulta de un **2º objetivo IP 187.189.8.57**, además del host Censys 192.100.201.235. Documentado en §7.10/§7.6. | Diego/Claude |
 
 > A partir de aquí se añade una fila por cada paso ejecutado. Cuando ejecutes un
 > comando, pega aquí el comando exacto, la versión de la herramienta y el hash/salida

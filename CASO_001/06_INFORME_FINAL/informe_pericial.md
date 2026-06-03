@@ -323,6 +323,10 @@ Cronología reconstruida (registro, BAM, historial web, descargas, LNK; hora loc
 | 2024-04-23 10:17 / 11:10 | **Adquisición**: volcado de memoria / inicio de imagen de disco. |
 
 _Fuentes: `25_run_programs.csv`, `22_web_downloads.csv`, `21_web_history.csv`, `26_recent_documents.csv`, `23_usb_devices.csv`._
+
+> **Corroboración visual:** el *Timeline Snapshot* de Autopsy (`03_ANALISIS/timeline/timeline_autopsy_snapshot.png`)
+> grafica la concentración de eventos el 21–23 abr 2024 (instalación de Nmap, visitas a `shodan.io`,
+> consultas a las IPs objetivo, descargas de nómina, etc.). Ver Anexo.
 ### 7.7 Credenciales y cifrado / DPAPI (obj. 6)
 
 **Técnica empleada.** Extracción **offline** de los hashes NT desde los hives **SAM + SYSTEM**
@@ -443,6 +447,9 @@ La evidencia de disco muestra dos vertientes de actividad de inteligencia/recopi
 - Uso de **Censys Search** (censys.io) para consultar el host **192.100.201.235**, revisando
   específicamente su servicio **RDP (3389/TCP)** (2024-04-22 12:02) — reconocimiento de un
   objetivo concreto con escritorio remoto expuesto.
+- Uso de **Shodan** (`shodan.io`, **13 visitas**) — buscador de dispositivos expuestos en
+  Internet, herramienta típica de reconocimiento; y consulta de un **segundo objetivo**, la IP
+  **187.189.8.57** (rango mexicano). _(Evidenciado en el timeline de Autopsy, Anexo.)_
 - Instalación/uso de **Nmap** y de un **adaptador WiFi USB Ralink RT2870/RT3070** (apto para
   monitoreo/inyección inalámbrica) y descarga de **"Mastering Kali Linux Wireless Pentesting.pdf"**.
 
@@ -585,7 +592,8 @@ hipótesis planteadas:
 ## 11. Anexos
 - A. Reporte de hashes — integridad triple algoritmo (MD5/SHA-1/SHA-256), 9/9 PASS: `02_PRESERVACION/hashes/reporte_integridad.md`; capturas en `04_EVIDENCIA/capturas/`.
 - B. Salidas de Volatility 3 (`02_PRESERVACION/{memoria,procesos,red}/`): `01_info`, `02_pslist`, `03_pstree`, `05_cmdline`, `06_netscan`, `07_cmdscan`, `08_consoles`.
-- C. Exportaciones de Autopsy (`03_ANALISIS/autopsy_export/`): `21_web_history`, `22_web_downloads`, `23_usb_devices`, `24_installed_programs`, `25_run_programs`, `26_recent_documents`, `27_os_info` (CSV).
+- C. Exportaciones de Autopsy (`03_ANALISIS/autopsy_export/`): `21_web_history`, `22_web_downloads`, `23_usb_devices`, `24_installed_programs`, `25_run_programs`, `26_recent_documents`, `27_os_info`, `28_encryption_suspected` (CSV); **Timeline Snapshot** (`03_ANALISIS/timeline/timeline_autopsy_snapshot.png`).
+- C-bis. Descifrado DPAPI de navegador (`03_ANALISIS/correlacion/`): `descifrar_dpapi_navegador.py` + `16_credenciales_navegador.txt`.
 - D. Extracción de credenciales (`03_ANALISIS/correlacion/`): `extraer_hashes_sam.py` + `15_hashes_sam.txt`.
 - E. Bitácora pericial completa: `BITACORA_PERICIAL.md` (23 actividades fechadas).
 - F. Cadena de custodia: `24042024_001-003-Pavana-Hidalgo-RCDC.pdf`.
