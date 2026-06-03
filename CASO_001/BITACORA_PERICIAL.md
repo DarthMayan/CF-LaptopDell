@@ -30,6 +30,9 @@
 | 008 | 2026-06-02 19:33 | Líneas de comando de procesos | `vol -f $IMG windows.cmdline` (Vol3 2.28.0) | memdump.mem | OK. Tools identificadas (usuario **ken**): **Nmap/Zenmap** (`pythonw.exe` PID 68800), **uTorrent Web** (`utweb.exe` PID 106556, `C:\Users\ken\AppData\Roaming\uTorrent Web\`), **RAV VPN/ReasonLabs** (`rsVPNSvc`, `rsEngineSvc`, `rsDNSClientSvc`), **Tor** (proceso `tor-0.4.8.10` + Brave TorLauncher). Salida: `02_PRESERVACION/procesos/05_cmdline.txt` | Diego |
 | 009 | 2026-06-02 19:39 | Conexiones de red | `vol -f $IMG windows.netscan` (Vol3 2.28.0) | memdump.mem | OK. Equipo IP **192.168.145.72**. Tor a guard relays (54.39.234.91:9001, 18.18.82.17:9001); uTorrent a peers externos; **RDP entrante** 192.168.145.65→.72:3389 (ESTABLISHED, PID 1072). Salida: `02_PRESERVACION/red/06_netscan.txt` | Diego |
 | 010 | 2026-06-02 19:28 | pstree / pslist | `vol -f $IMG windows.pstree` / `.pslist` | memdump.mem | **Falló por codificación** (UnicodeEncodeError cp1252 en redirección PowerShell `>`). Salidas parciales. **Pendiente re-ejecutar con `$env:PYTHONUTF8=1`.** | Diego |
+| 011 | 2026-06-02 20:17 | Re-ejecución pstree/pslist con UTF-8 | `vol` + `$env:PYTHONUTF8=1` | memdump.mem | OK, generados completos (`02_pslist.txt`, `03_pstree.txt`). | Diego |
+| 012 | 2026-06-02 20:18 | Historial de consola y comandos | `vol windows.cmdscan` / `windows.consoles` | memdump.mem | Sin historial: solo `conhost.exe` PID 88564 con "History/Console Information Not Found". Actividad fue GUI, no por consola. | Diego |
+| 013 | 2026-06-02 20:18 | Volcado de hashes desde memoria | `vol windows.registry.hashdump` | memdump.mem | **No exitoso**: "Hbootkey is not valid" (sin salida). Se obtendrán los hashes offline desde SAM+SYSTEM con impacket secretsdump (obj. 6). | Diego |
 
 > A partir de aquí se añade una fila por cada paso ejecutado. Cuando ejecutes un
 > comando, pega aquí el comando exacto, la versión de la herramienta y el hash/salida
