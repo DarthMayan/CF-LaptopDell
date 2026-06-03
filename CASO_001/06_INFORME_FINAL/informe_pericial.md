@@ -12,7 +12,14 @@
 - **Número de caso:** 24042024-001-Pavana-Hidalgo
 - **Entidad solicitante:** Fiscalía General del Estado — Dirección de Peritos y Ciencias Forenses
 - **Fiscal:** Lic. Alessandro Tapia Ochoa
-- **Perito:** Diego Morales Gómez — 0250015@up.edu.mx
+- **Equipo pericial (peritos terceros designados):**
+  - Diego Morales Gómez — 0250015@up.edu.mx
+  - Ramón Andrés Galindo Gerardo — 0248040@up.edu.mx
+  - Luis Atristain Alfaro — 0246760@up.edu.mx
+  - Montserrat Castillo Vega — 0255627@up.edu.mx
+  - Fernando Mauricio Chavarría Reyes — 0253214@up.edu.mx
+  - Cecilia Gaona Vidales — 0267688@up.edu.mx
+  - José Gabriel Hernández Castresana — 0253264@up.edu.mx
 - **Fecha de emisión:** 2 de junio de 2026
 - _(Imagen corporativa / logo)_
 
@@ -561,10 +568,22 @@ hipótesis planteadas:
 ---
 
 ## 12. Firma y Credenciales
-- **Perito:** Diego Morales Gómez
-- **Correo:** 0250015@up.edu.mx
-- **Firma electrónica avanzada:** _[pendiente]_
-- **Constancia de idoneidad profesional:** _[pendiente]_
+
+**Equipo pericial (peritos terceros designados).** Cada integrante suscribe el presente dictamen;
+la firma electrónica avanzada y la constancia de idoneidad profesional se adjuntan por separado.
+
+| # | Perito | Correo | Firma |
+|---|---|---|---|
+| 1 | Diego Morales Gómez | 0250015@up.edu.mx | __________________ |
+| 2 | Ramón Andrés Galindo Gerardo | 0248040@up.edu.mx | __________________ |
+| 3 | Luis Atristain Alfaro | 0246760@up.edu.mx | __________________ |
+| 4 | Montserrat Castillo Vega | 0255627@up.edu.mx | __________________ |
+| 5 | Fernando Mauricio Chavarría Reyes | 0253214@up.edu.mx | __________________ |
+| 6 | Cecilia Gaona Vidales | 0267688@up.edu.mx | __________________ |
+| 7 | José Gabriel Hernández Castresana | 0253264@up.edu.mx | __________________ |
+
+- **Firma electrónica avanzada:** _[adjuntar por cada perito]_
+- **Constancia de idoneidad profesional:** _[adjuntar por cada perito]_
 
 ---
 

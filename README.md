@@ -4,7 +4,14 @@
 Análisis forense de los indicios de una laptop, solicitado por la **Fiscalía General del Estado**
 (Dirección de Peritos y Ciencias Forenses). Examen final de la asignatura de Cómputo Forense.
 
-- **Perito:** Diego Morales Gómez — 0250015@up.edu.mx
+- **Equipo pericial (peritos terceros designados):**
+  - Diego Morales Gómez — 0250015@up.edu.mx
+  - Ramón Andrés Galindo Gerardo — 0248040@up.edu.mx
+  - Luis Atristain Alfaro — 0246760@up.edu.mx
+  - Montserrat Castillo Vega — 0255627@up.edu.mx
+  - Fernando Mauricio Chavarría Reyes — 0253214@up.edu.mx
+  - Cecilia Gaona Vidales — 0267688@up.edu.mx
+  - José Gabriel Hernández Castresana — 0253264@up.edu.mx
 - **Equipo analizado:** `DESKTOP-2TQHS9Q` — Windows 10 Pro 22H2 — usuario **ken**
 - **Estándares:** NIST SP 800-86 · ISO/IEC 27037 / 27041 / 27042 · INTERPOL · SWGDE/ENFSI
 

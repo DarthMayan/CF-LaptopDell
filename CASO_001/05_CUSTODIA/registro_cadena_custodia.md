@@ -23,7 +23,7 @@
 
 | Quién | Acción | Fecha/hora | Estado |
 |---|---|---|---|
-| Diego Morales Gómez (perito 3º) | Recepción de indicios para análisis | 2026-06-02 | Íntegros, sellados digitalmente por hash |
+| Equipo pericial 3º (ver §6) | Recepción de indicios para análisis | 2026-06-02 | Íntegros, sellados digitalmente por hash |
 | — | Trabajo sobre **copias**; originales en **solo lectura** | — | Sin alteración |
 
 ## 3. Verificación de integridad (eslabón de continuidad)
@@ -49,3 +49,12 @@
 ## 5. Trazabilidad de copias y hashes
 Todos los indicios analizados quedan referenciados por su hash en `reporte_integridad.md`
 (Anexo A del informe final), garantizando que lo analizado es idéntico a lo recibido.
+
+## 6. Equipo pericial (peritos terceros designados)
+- Diego Morales Gómez — 0250015@up.edu.mx
+- Ramón Andrés Galindo Gerardo — 0248040@up.edu.mx
+- Luis Atristain Alfaro — 0246760@up.edu.mx
+- Montserrat Castillo Vega — 0255627@up.edu.mx
+- Fernando Mauricio Chavarría Reyes — 0253214@up.edu.mx
+- Cecilia Gaona Vidales — 0267688@up.edu.mx
+- José Gabriel Hernández Castresana — 0253264@up.edu.mx

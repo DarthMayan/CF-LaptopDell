@@ -6,7 +6,14 @@
 > fondo (que se desarrolla en `06_INFORME_FINAL/informe_pericial.md`).
 > *Se exportará a `informe_preliminar.docx`/PDF para la entrega.*
 
-- **Perito:** Diego Morales Gómez — 0250015@up.edu.mx
+- **Equipo pericial (peritos terceros designados):**
+  - Diego Morales Gómez — 0250015@up.edu.mx
+  - Ramón Andrés Galindo Gerardo — 0248040@up.edu.mx
+  - Luis Atristain Alfaro — 0246760@up.edu.mx
+  - Montserrat Castillo Vega — 0255627@up.edu.mx
+  - Fernando Mauricio Chavarría Reyes — 0253214@up.edu.mx
+  - Cecilia Gaona Vidales — 0267688@up.edu.mx
+  - José Gabriel Hernández Castresana — 0253264@up.edu.mx
 - **Entidad solicitante:** Fiscalía General del Estado — Dirección de Peritos y Ciencias Forenses
 - **Fecha:** 2 de junio de 2026
 - **Equipo de análisis:** MAYAN (Windows 11), software libre/licenciado documentado en metodología.

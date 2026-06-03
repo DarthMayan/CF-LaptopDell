@@ -9,7 +9,14 @@
 > manipula evidencia sin documentar (req. de entrega). Trabajar siempre sobre copias;
 > los originales (.E01, .mem) son de solo lectura.
 
-**Perito:** Diego Morales Gómez — 0250015@up.edu.mx
+**Equipo pericial (peritos terceros designados):**
+- Diego Morales Gómez — 0250015@up.edu.mx
+- Ramón Andrés Galindo Gerardo — 0248040@up.edu.mx
+- Luis Atristain Alfaro — 0246760@up.edu.mx
+- Montserrat Castillo Vega — 0255627@up.edu.mx
+- Fernando Mauricio Chavarría Reyes — 0253214@up.edu.mx
+- Cecilia Gaona Vidales — 0267688@up.edu.mx
+- José Gabriel Hernández Castresana — 0253264@up.edu.mx
 **Equipo de trabajo:** MAYAN (Windows 11 Home SL 10.0.26200)
 **Zona horaria de referencia:** UTC−6 (Centro de México) — declarar siempre el huso al reportar timestamps.
 
