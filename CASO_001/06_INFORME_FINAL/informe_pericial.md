@@ -408,12 +408,13 @@ ocultar información**; todos tienen explicación legítima: un **instalador MSI
 **bases internas del navegador DuckDuckGo** (`browser-v1.db`, `dbp-v1.db`, `favicons-v1.db`). Se
 concluye que **no existen documentos cifrados de interés** ocultos por el usuario.
 _Fuente: `03_ANALISIS/autopsy_export/28_encryption_suspected.csv`._
-### 7.8 Actividad de red (obj. 7)  _[preliminar — vía memoria]_
+### 7.8 Actividad de red (obj. 7)
 
-**Fuente:** `vol windows.netscan` sobre `memdump.mem` (`02_PRESERVACION/red/06_netscan.txt`).
+**Fuente:** `vol windows.netscan` sobre `memdump.mem` (`02_PRESERVACION/red/06_netscan.txt`),
+**corroborado** con el historial web y las herramientas hallados en disco (§7.9–7.11).
 Dirección IP del equipo: **192.168.145.72** (segmento LAN 192.168.145.0/24).
 
-Hallazgos preliminares (pendiente correlación con `netstat`/artefactos de disco):
+Hallazgos (red entrante y saliente):
 
 | Categoría | Evidencia (proceso / PID / conexión) |
 |---|---|
@@ -551,12 +552,12 @@ Relación de la evidencia con cada hipótesis (§6):
 | HC-1 | Integridad de toda la evidencia certificada (E01 *Match*; 9/9 hives PASS) | §7.1, Anexo A | — (base) |
 | HC-2 | Equipo Windows 10 Pro 22H2, hostname DESKTOP-2TQHS9Q, usuario **ken**, **instalado 21-abr-2024** | §7.2, §7.4 | contexto |
 | HC-3 | Instalación/uso de **Nmap+Npcap, Parrot Security (VM), adaptador WiFi USB**, material de wireless pentesting | §7.9, `24/25_*.csv` | **H1** ✔ |
-| HC-4 | **Reconocimiento OSINT con Censys** del host **192.100.201.235** y su **RDP/3389** | §7.10, `21_web_history.csv` | **H2** ✔ |
+| HC-4 | **Reconocimiento OSINT**: Censys del host **192.100.201.235** (RDP/3389), **Shodan** (13 visitas) y consulta de la IP **187.189.8.57** | §7.10, `21_web_history.csv`, timeline | **H2** ✔ |
 | HC-5 | **Descarga dirigida de decenas de archivos de nómina/personal** de portales `.gob.mx` (operadores `filetype:`) | §7.10, `22_web_downloads.csv` | **H3** ✔ |
 | HC-6 | **Vectores de exfiltración** presentes y usados: 3 memorias USB, FileZilla FTP, uTorrent, OneDrive | §7.11, `23_usb_devices.csv` | **H4** ✔ |
 | HC-7 | **Anonimización** activa: Tor (proceso + Brave) y RAV VPN | §7.8, §7.9 | **H5** ✔ |
 | HC-8 | **RDP entrante** establecido desde 192.168.145.65 | §7.8, `06_netscan.txt` | H2/H4 |
-| HC-9 | Credenciales (hashes NT) recuperadas, incl. `ken` | §7.7, `15_hashes_sam.txt` | — |
+| HC-9 | Credenciales recuperadas: hashes NT + **contraseña de `ken` descifrada (`MyPassword`)** + masterkey DPAPI descifrada (sin contraseñas guardadas) | §7.7, `15_hashes_sam.txt`, `16_credenciales_navegador.txt` | obj. 6 |
 | HC-10 | **Actividad peri-adquisición** (carpeta del caso en D: navegada en vivo 23-abr 10:12–10:13) + 7 inconsistencias de custodia | §7.5, §7.12 | obj. 3/12 |
 
 > Las cinco hipótesis de apoyo (H1–H5) quedan **corroboradas** por evidencia concurrente de
