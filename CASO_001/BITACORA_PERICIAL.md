@@ -33,6 +33,7 @@
 | 011 | 2026-06-02 20:17 | Re-ejecución pstree/pslist con UTF-8 | `vol` + `$env:PYTHONUTF8=1` | memdump.mem | OK, generados completos (`02_pslist.txt`, `03_pstree.txt`). | Diego |
 | 012 | 2026-06-02 20:18 | Historial de consola y comandos | `vol windows.cmdscan` / `windows.consoles` | memdump.mem | Sin historial: solo `conhost.exe` PID 88564 con "History/Console Information Not Found". Actividad fue GUI, no por consola. | Diego |
 | 013 | 2026-06-02 20:18 | Volcado de hashes desde memoria | `vol windows.registry.hashdump` | memdump.mem | **No exitoso**: "Hbootkey is not valid" (sin salida). Se obtendrán los hashes offline desde SAM+SYSTEM con impacket secretsdump (obj. 6). | Diego |
+| 014 | 2026-06-02 | Instalación de impacket (secretsdump) | `pip install impacket` | — | El **antivirus del equipo de análisis (MAYAN) detectó y eliminó** componentes de impacket (falso positivo: secretsdump es marcado como *hacktool*). Es uso forense legítimo. **Acción documentada:** se valorará excluir la carpeta del caso en el AV y reinstalar para continuar con el obj. 6. Sin impacto en la evidencia (los hives son de solo lectura). | Diego |
 
 > A partir de aquí se añade una fila por cada paso ejecutado. Cuando ejecutes un
 > comando, pega aquí el comando exacto, la versión de la herramienta y el hash/salida
