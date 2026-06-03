@@ -256,6 +256,15 @@ _Fuente: Autopsy 4.23.1, Data Sources → tabla de volúmenes._
   relevante para los objetivos 4, 10 y 12. _Línea abierta:_ identificar en Autopsy los archivos
   cuyo propietario es ese SID.
 
+**Verificación de cuentas ocultas (obj. 4/12).** Se revisaron los dos vectores habituales de
+ocultamiento de cuentas: (1) la enumeración completa del **SAM** (`…\Account\Users\Names` y los
+RID en `…\Account\Users`) y (2) la clave **`SOFTWARE\…\Winlogon\SpecialAccounts\UserList`** (que
+oculta cuentas de la pantalla de inicio). **Resultado:** el SAM contiene **exactamente 5 cuentas**
+(Administrador 500, Invitado 501, DefaultAccount 503, WDAGUtilityAccount 504, **ken 1001**), sin
+cuentas terminadas en `$` ni RID adicionales; y **la clave `SpecialAccounts\UserList` no existe**.
+Por tanto **no hay usuarios ocultos** en el equipo, y el segundo SID (`…-1032`) **no es una cuenta
+local** (no figura en el SAM). _Script: `03_ANALISIS/correlacion/revisar_usuarios_ocultos.py`._
+
 **Titular e instalación del SO (hive SOFTWARE → `Microsoft\Windows NT\CurrentVersion`):**
 
 | Dato | Valor |
