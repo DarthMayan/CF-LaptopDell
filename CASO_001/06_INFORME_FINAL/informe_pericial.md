@@ -136,8 +136,39 @@ NIST SP 800-86 e ISO/IEC 27037. **Objetivo 9 cubierto.**
 > documenta el disco origen como **Seagate ST950042 0AS, S/N 5VJ8Z5ZN**.
 
 _Fuente: `02_PRESERVACION/memoria/01_info.txt`._
-### 7.3 Disco: geometría y serie (obj. 2)  _[pendiente]_
-### 7.4 Instalación del SO / titular (obj. 4)  _[pendiente]_
+### 7.3 Disco: geometría y particiones (obj. 2)
+
+**Disco origen** (cadena de custodia + cabecera del E01): Seagate **ST950042 0AS**, S/N
+**5VJ8Z5ZN**, interfaz reportada USB en adquisición. **976,773,152 sectores** × 512 bytes =
+~500 GB (465 GiB), valor que **coincide** con el contado por FTK y por Autopsy (corrobora integridad).
+
+**Tabla de particiones (Autopsy):**
+
+| Vol | Tipo | Sectores (inicio–fin) | Tamaño aprox. | Rol |
+|---|---|---|---|---|
+| vol1 | No asignado | 0–2047 | 1 MB | — |
+| vol2 | NTFS/exFAT (0x07) | 2048–104447 | ~52 MB | Sistema / EFI |
+| **vol3** | **NTFS (0x07)** | **104448–975672495** | **~465 GiB** | **Partición principal de Windows** |
+| vol4 | No asignado | 975672496–975673343 | <1 MB | — |
+| vol5 | Recuperación (0x27) | 975673344–976769023 | ~561 MB | WinRE |
+| vol6 | No asignado | 976769024–976773151 | ~2 MB | — |
+
+_Fuente: Autopsy 4.23.1, Data Sources → tabla de volúmenes._
+### 7.4 Instalación del SO / titular y cuentas (obj. 4)
+
+**Cuentas del sistema (Autopsy → OS Accounts; corroborado con SAM, §7.7):**
+- Cuenta de usuario principal: **ken** — SID `S-1-5-21-1936453629-2262114833-2442330573-1001`
+  (RID 1001), coincidente con el hash NT recuperado.
+- Cuentas integradas: SYSTEM (S-1-5-18), LOCAL/NETWORK SERVICE (S-1-5-19/20), cuentas de
+  servicio NT (S-1-5-80-*).
+- ⚠️ **Hallazgo:** aparece un **segundo SID de usuario con identificador de equipo/dominio
+  distinto** — `S-1-5-21-3933942852-973373972-2766786355-1032` (RID 1032). No corresponde al
+  SID local de este equipo (el de ken) ni figura como cuenta local en el SAM, lo que indica
+  rastro de un usuario de **otra máquina o dominio**. _Línea de investigación abierta:_ mapear
+  a qué perfil/archivos pertenece (relevante para obj. 4, 10 y 12).
+
+> El titular de la instalación (RegisteredOwner), fecha de instalación y nombre de equipo se
+> completarán con el registro (SOFTWARE/SYSTEM) vía Autopsy → OS Information _[pendiente]_.
 ### 7.5 Actividad posterior a la adquisición (obj. 3)  _[pendiente]_
 ### 7.6 Línea de tiempo 20–24 abr 2024 (obj. 5)  _[pendiente]_
 ### 7.7 Credenciales y cifrado / DPAPI (obj. 6)
