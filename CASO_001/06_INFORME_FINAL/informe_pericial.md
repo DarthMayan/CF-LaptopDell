@@ -269,8 +269,14 @@ _Fuente: Autopsy 4.23.1, Data Sources → tabla de volúmenes._
   del hive SOFTWARE: el único perfil humano del equipo es `ken` (…-1001); este segundo SID NO
   existe como perfil ni como cuenta local (SAM).** Por tanto su presencia se debe a **propiedad de
   archivos originados en otro sistema/usuario** (datos traídos desde otra máquina), lo que es
-  relevante para los objetivos 4, 10 y 12. _Línea abierta:_ identificar en Autopsy los archivos
-  cuyo propietario es ese SID.
+  relevante para los objetivos 4, 10 y 12.
+- ✅ **Resuelto (Keyword Search, Autopsy):** la búsqueda del SID en la imagen lo localiza asociado
+  a una cuenta **`installuser`** dentro del **hive SOFTWARE** y su log (`SOFTWARE.LOG1`), además de
+  un punto de restauración (*System Volume Information*) y espacio **no asignado** — **no** en el
+  `ProfileList`/SAM activos. Es decir, es un **remanente de provisión/despliegue**: esta instalación
+  de Windows se generó a partir de una **imagen maestra preparada en otra máquina** por la cuenta de
+  build `installuser`. Esto **refuerza** que el equipo fue **preparado/clonado el 21-abr-2024** para
+  la actividad (no un equipo de uso prolongado). _Fuente: `03_ANALISIS/autopsy_export/29_keyword_SID_externo_installuser.csv`._
 
 **Verificación de cuentas ocultas (obj. 4/12).** Se revisaron los dos vectores habituales de
 ocultamiento de cuentas: (1) la enumeración completa del **SAM** (`…\Account\Users\Names` y los
@@ -536,7 +542,9 @@ guardadas en medio extraíble.
    Pavana-Hidalgo\…`) fue navegada en el sistema en vivo 2024-04-23 10:12–10:13, antes de concluir
    la recolección.
 7. **Segundo SID de usuario** ajeno al equipo (`S-1-5-21-3933942852-973373972-2766786355-1032`),
-   sin cuenta local correspondiente en el SAM (§7.4).
+   sin cuenta local en SAM/ProfileList: corresponde a la cuenta de build **`installuser`** de otra
+   máquina, hallada como **remanente en el hive SOFTWARE** → indica **despliegue desde imagen
+   maestra** (equipo preparado/clonado). Ver §7.4.
 
 _Fundamento: buenas prácticas NIST SP 800-86, ISO/IEC 27037/27042, ENFSI/SWGDE; se documentan
 sin alterar la evidencia._

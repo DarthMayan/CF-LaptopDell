@@ -19,8 +19,8 @@ Documento de control para verificar que el entregable cumple **todos** los requi
 | 11 | Exfiltración | ✅ | §7.11 |
 | 12 | Inconsistencias | ✅ (7) | §7.12 |
 
-> Opcional pendiente: Tarea C (mapear archivos del 2º SID) — requiere terminar el índice de
-> Keyword Search; documentada como línea abierta, **no bloquea la entrega**.
+> ✅ Tarea C **resuelta** (Keyword Search): el 2º SID se asocia a la cuenta de build `installuser`
+> como remanente en el hive SOFTWARE → despliegue desde imagen maestra (§7.4, §7.12).
 
 ## 2. Estructura obligatoria del informe ✅ (contenido)
 
