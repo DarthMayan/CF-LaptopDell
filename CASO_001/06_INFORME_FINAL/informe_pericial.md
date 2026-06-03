@@ -248,11 +248,13 @@ _Fuente: Autopsy 4.23.1, Data Sources → tabla de volúmenes._
   (RID 1001), coincidente con el hash NT recuperado.
 - Cuentas integradas: SYSTEM (S-1-5-18), LOCAL/NETWORK SERVICE (S-1-5-19/20), cuentas de
   servicio NT (S-1-5-80-*).
-- ⚠️ **Hallazgo:** aparece un **segundo SID de usuario con identificador de equipo/dominio
-  distinto** — `S-1-5-21-3933942852-973373972-2766786355-1032` (RID 1032). No corresponde al
-  SID local de este equipo (el de ken) ni figura como cuenta local en el SAM, lo que indica
-  rastro de un usuario de **otra máquina o dominio**. _Línea de investigación abierta:_ mapear
-  a qué perfil/archivos pertenece (relevante para obj. 4, 10 y 12).
+- ⚠️ **Hallazgo:** aparece un **segundo SID de usuario con identificador de equipo distinto** —
+  `S-1-5-21-3933942852-973373972-2766786355-1032` (RID 1032). **Verificado contra el `ProfileList`
+  del hive SOFTWARE: el único perfil humano del equipo es `ken` (…-1001); este segundo SID NO
+  existe como perfil ni como cuenta local (SAM).** Por tanto su presencia se debe a **propiedad de
+  archivos originados en otro sistema/usuario** (datos traídos desde otra máquina), lo que es
+  relevante para los objetivos 4, 10 y 12. _Línea abierta:_ identificar en Autopsy los archivos
+  cuyo propietario es ese SID.
 
 **Titular e instalación del SO (hive SOFTWARE → `Microsoft\Windows NT\CurrentVersion`):**
 
@@ -345,15 +347,23 @@ del hash NT de cada cuenta (AES + DES con clave derivada del RID). Implementado 
 | WDAGUtilityAccount | 504 | 3d320a256111a327a9012542211125a1 | Cuenta de Windows Defender Application Guard (password aleatorio del sistema) |
 | **ken** | **1001** | **f12c418083c05e3a7de78582e61f652d** | **Cuenta de usuario principal** |
 
-**Descifrado de contraseña.** Se aplicó un ataque de diccionario (4,215 candidatos comunes y
-temáticos) al hash de `ken` **sin éxito**; la contraseña no es trivial. La *recuperación de la
-credencial* (hash) ya cumple el objetivo; el descifrado completo requeriría un ataque mayor
-(hashcat modo 1000 con diccionario rockyou + reglas), recomendado como paso opcional.
+**Descifrado de contraseña — LOGRADO.** Tras un primer diccionario temático sin éxito, se ejecutó
+un ataque contra el diccionario **rockyou** (14,344,391 entradas) calculando el hash NT
+(`MD4(UTF-16LE)`) de cada candidato. La contraseña de **`ken` se recuperó en claro**:
 
-**DPAPI (documentos/secret​os cifrados).** El triage conserva las claves DPAPI del usuario `ken`
-(`Users/ken/Protect/S-1-5-21-1936453629-2262114833-2442330573-1001` y `Users/ken/Crypto`). Con la
-contraseña de `ken` (o su masterkey) podrían descifrarse secretos protegidos (contraseñas guardadas
-en navegador, credenciales). Queda como línea de análisis abierta. _Fuente: `15_hashes_sam.txt`._
+> **Contraseña de `ken`: `MyPassword`** (NT `f12c418083c05e3a7de78582e61f652d`, hallada en ~24 s).
+
+Script reproducible: `03_ANALISIS/correlacion/descifrar_password_ken.py`. **Objetivo 6 cumplido en
+su totalidad** (hash recuperado + contraseña descifrada).
+
+**DPAPI (secretos cifrados) — habilitado.** El triage conserva las claves DPAPI de `ken`
+(`Users/ken/Protect/S-1-5-21-…-1001` con la *masterkey* `2402689c-5e8c-4083-8474-015e1fa1cb5a`, y
+`Users/ken/Crypto`). **Al disponer ya de la contraseña (`MyPassword`)**, es posible descifrar la
+masterkey de `ken` y, con ella, los secretos protegidos por DPAPI. Para descifrar **contraseñas
+guardadas en el navegador** se requiere además extraer del disco (vía Autopsy) los archivos
+`Login Data` y `Local State` de Brave/Edge; con la masterkey se obtiene la clave AES del navegador
+y se descifran las credenciales. _Procedimiento señalado para profundización._
+_Fuentes: `15_hashes_sam.txt`, `descifrar_password_ken.py`, claves DPAPI del triage._
 ### 7.8 Actividad de red (obj. 7)  _[preliminar — vía memoria]_
 
 **Fuente:** `vol windows.netscan` sobre `memdump.mem` (`02_PRESERVACION/red/06_netscan.txt`).
@@ -530,12 +540,12 @@ hipótesis planteadas:
    procesal.
 
 **Limitaciones del análisis:**
-- No se logró **descifrar** la contraseña de `ken` con diccionario básico (la *recuperación del
-  hash* sí se cumplió); un ataque mayor (hashcat + rockyou) queda como vía abierta.
 - La **transferencia consumada** de un archivo concreto hacia un destino externo no se demostró de
   forma directa; sí la **capacidad, preparación y acopio** (se requeriría correlación con logs de
-  FileZilla, contenido de los USB físicos o captura de red).
-- El **segundo SID de usuario** ajeno al equipo queda como línea de investigación.
+  FileZilla, contenido de los USB físicos —no aportados como indicio— o captura de red).
+- El **segundo SID de usuario** ajeno al equipo (`…-3933942852-…-1032`) **no figura en el ProfileList
+  ni en el SAM** del equipo; su presencia se explica por **propiedad de archivos originados en otro
+  sistema/usuario** — su mapeo fino queda como línea de investigación.
 - La ingesta de Autopsy se interrumpió por una excepción no fatal de la herramienta; los artefactos
   analizados son válidos, aunque algunas categorías podrían ampliarse re-procesando.
 
