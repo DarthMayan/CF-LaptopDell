@@ -356,14 +356,21 @@ un ataque contra el diccionario **rockyou** (14,344,391 entradas) calculando el 
 Script reproducible: `03_ANALISIS/correlacion/descifrar_password_ken.py`. **Objetivo 6 cumplido en
 su totalidad** (hash recuperado + contraseña descifrada).
 
-**DPAPI (secretos cifrados) — habilitado.** El triage conserva las claves DPAPI de `ken`
-(`Users/ken/Protect/S-1-5-21-…-1001` con la *masterkey* `2402689c-5e8c-4083-8474-015e1fa1cb5a`, y
-`Users/ken/Crypto`). **Al disponer ya de la contraseña (`MyPassword`)**, es posible descifrar la
-masterkey de `ken` y, con ella, los secretos protegidos por DPAPI. Para descifrar **contraseñas
-guardadas en el navegador** se requiere además extraer del disco (vía Autopsy) los archivos
-`Login Data` y `Local State` de Brave/Edge; con la masterkey se obtiene la clave AES del navegador
-y se descifran las credenciales. _Procedimiento señalado para profundización._
-_Fuentes: `15_hashes_sam.txt`, `descifrar_password_ken.py`, claves DPAPI del triage._
+**DPAPI (secretos cifrados) — EJECUTADO.** Con la contraseña recuperada (`MyPassword`) y el SID de
+`ken`, se **descifró la masterkey DPAPI** del usuario (`2402689c-5e8c-4083-8474-015e1fa1cb5a`, del
+triage) mediante `dpapick3`. Con ella se obtuvo la **clave AES de cifrado de credenciales** (32 bytes)
+de **Brave y de Edge** (desde sus archivos `Local State`, esquema *App-Bound v10*), y se intentó
+descifrar el almacén `Login Data` de cada navegador.
+
+**Resultado:** la cadena de descifrado funcionó (masterkey y claves AES obtenidas), pero las tablas
+`logins` de **Brave y Edge están vacías (0 credenciales guardadas)**. Es decir, **`ken` no almacenó
+contraseñas en los navegadores** —conducta coherente con el uso de Tor/VPN y prácticas de
+ocultamiento—. Se documenta el procedimiento y el resultado negativo por completitud.
+
+Script reproducible: `03_ANALISIS/correlacion/descifrar_dpapi_navegador.py`
+(salida: `16_credenciales_navegador.txt`).
+_Fuentes: `15_hashes_sam.txt`, `descifrar_password_ken.py`, claves DPAPI del triage, archivos
+`Local State`/`Login Data` en `autopsy_export/dpapi/`._
 
 **Documentos cifrados (revisión).** Autopsy marcó **6 archivos** por alta entropía
 (*Encryption Suspected*). Tras su revisión, **ninguno es un documento del usuario cifrado para

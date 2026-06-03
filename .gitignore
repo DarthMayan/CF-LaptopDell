@@ -31,3 +31,7 @@ CASO_001/03_ANALISIS/CASO_001-Pavana-Hidalgo/
 *.aut
 autopsy.db*
 ModuleOutput/
+
+# Perfiles de navegador extraídos para DPAPI (voluminosos; reproducibles desde el E01).
+# El resultado del análisis queda en 03_ANALISIS/correlacion/16_credenciales_navegador.txt
+CASO_001/03_ANALISIS/autopsy_export/dpapi/
