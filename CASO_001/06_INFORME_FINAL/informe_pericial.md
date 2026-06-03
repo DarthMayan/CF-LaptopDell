@@ -364,6 +364,14 @@ guardadas en el navegador** se requiere además extraer del disco (vía Autopsy)
 `Login Data` y `Local State` de Brave/Edge; con la masterkey se obtiene la clave AES del navegador
 y se descifran las credenciales. _Procedimiento señalado para profundización._
 _Fuentes: `15_hashes_sam.txt`, `descifrar_password_ken.py`, claves DPAPI del triage._
+
+**Documentos cifrados (revisión).** Autopsy marcó **6 archivos** por alta entropía
+(*Encryption Suspected*). Tras su revisión, **ninguno es un documento del usuario cifrado para
+ocultar información**; todos tienen explicación legítima: un **instalador MSI** de LibreOffice
+(comprimido), el **caché de iconos** de Windows (`iconcache_256.db`, `IconCache.db-slack`) y tres
+**bases internas del navegador DuckDuckGo** (`browser-v1.db`, `dbp-v1.db`, `favicons-v1.db`). Se
+concluye que **no existen documentos cifrados de interés** ocultos por el usuario.
+_Fuente: `03_ANALISIS/autopsy_export/28_encryption_suspected.csv`._
 ### 7.8 Actividad de red (obj. 7)  _[preliminar — vía memoria]_
 
 **Fuente:** `vol windows.netscan` sobre `memdump.mem` (`02_PRESERVACION/red/06_netscan.txt`).
