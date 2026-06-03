@@ -42,6 +42,8 @@
 4. Campos **MD5/SHA-1 de la copia forense en blanco** en el formato (la integridad sí se verificó).
 5. Herramienta de verificación (Exterro FTK 4.7.3.81) distinta a la de adquisición (AccessData FTK 4.7.2.11).
 6. **Actividad peri-adquisición** registrada en la imagen (carpeta del caso navegada en vivo 23-abr 10:12–10:13).
+7. **Origen del SO:** remanente de la cuenta de build `installuser` (SID de otra máquina) en el
+   hive SOFTWARE → instalación desplegada desde **imagen maestra**, no de uso orgánico previo (§7.4/§7.12).
 
 > Estas observaciones **no afectan la integridad técnica verificada** de las copias, pero se
 > consignan para su valoración procesal.

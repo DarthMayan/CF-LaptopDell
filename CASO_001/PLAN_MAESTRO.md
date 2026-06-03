@@ -9,43 +9,43 @@ Se sigue el flujo **NIST SP 800-86 / ISO/IEC 27037**: **Identificación → Pres
 Recolección → Análisis → Reporte**. No se analiza nada antes de preservar y verificar
 integridad. Todo se hace sobre **copias de trabajo**; los originales son de solo lectura.
 
-## Fases y estado
+## Fases y estado — **ANÁLISIS COMPLETO**
 
 | Fase | Descripción | Carpeta | Estado |
 |---|---|---|---|
 | 0 | Estructura + bitácora + plan | `/CASO_001/` | ✅ Hecho |
-| 1 | **Preservación: integridad/hashing** de todos los indicios | `02_PRESERVACION/hashes/` | ⏳ EN CURSO ← **AQUÍ EMPEZAMOS** |
-| 2 | Identificación (equipo, SO, disco, instalador) | `01_IDENTIFICACION/` | ⬜ |
-| 3 | Análisis de memoria (Volatility) | `02_PRESERVACION/{memoria,procesos,red}/` | ⬜ |
-| 4 | Análisis de registro (hives de triage) | `03_ANALISIS/` | ⬜ |
-| 5 | Análisis de disco E01 (FTK/Autopsy) | `03_ANALISIS/` | ⬜ |
-| 6 | Credenciales y DPAPI | `03_ANALISIS/correlacion/` | ⬜ |
-| 7 | Timeline 20–24 abr 2024 + correlación | `03_ANALISIS/timeline/` | ⬜ |
-| 8 | Redacción informe final | `06_INFORME_FINAL/` | ⬜ (esqueleto listo) |
+| 1 | **Preservación: integridad/hashing** de todos los indicios | `02_PRESERVACION/hashes/` | ✅ Hecho (E01 Match + 9/9 PASS) |
+| 2 | Identificación (equipo, SO, disco, instalador) | `01_IDENTIFICACION/` | ✅ Hecho |
+| 3 | Análisis de memoria (Volatility) | `02_PRESERVACION/{memoria,procesos,red}/` | ✅ Hecho |
+| 4 | Análisis de registro (hives de triage) | `03_ANALISIS/` | ✅ Hecho |
+| 5 | Análisis de disco E01 (Autopsy) | `03_ANALISIS/` | ✅ Hecho |
+| 6 | Credenciales y DPAPI | `03_ANALISIS/correlacion/` | ✅ Hecho (contraseña `MyPassword` + DPAPI) |
+| 7 | Timeline 20–24 abr 2024 + correlación | `03_ANALISIS/timeline/` | ✅ Hecho |
+| 8 | Redacción informe final | `06_INFORME_FINAL/` | ✅ Redactado (pendiente PDF + firmas) |
+
+> **Estado global:** los 12 objetivos y las profundizaciones (contraseña, DPAPI, archivos cifrados,
+> usuarios ocultos, 2º SID = imagen maestra) están **cerrados**. Solo resta exportar a PDF y firmar.
 
 ## Mapa objetivo → evidencia → herramienta
 
 | Obj | Qué pide | Fuente principal | Herramienta |
 |---|---|---|---|
-| 1 | Marca/modelo/serie equipo + SO | hive SYSTEM, SOFTWARE | RegRipper / Autopsy |
-| 2 | Disco: geometría, serie | Cadena custodia + .E01 (FTK) | FTK Imager |
-| 3 | ¿Actividad post-adquisición? | timestamps vs fecha de adquisición | timeline / hashing |
-| 4 | Quién instaló SO/apps | SOFTWARE (RegisteredOwner/InstallDate), SAM | RegRipper |
-| 5 | Timeline 20–24 abr 2024 | NTUSER (UserAssist, RecentDocs), $MFT, EVTX | Autopsy / plaso |
-| 6 | Credenciales / cifrado | SAM+SYSTEM, DPAPI de ken | secretsdump / dpapi |
-| 7 | Actividad de red | memdump (netscan), perfiles red, navegador | Volatility 3 |
-| 8 | Herramientas/artefactos | Uninstall, Prefetch, procesos RAM | RegRipper, Volatility, Autopsy |
+| 1 | Marca/modelo/serie equipo + SO | hive SYSTEM, SOFTWARE | Volatility 3 + Autopsy + regipy |
+| 2 | Disco: geometría, serie | Cadena custodia + .E01 | FTK Imager + Autopsy |
+| 3 | ¿Actividad post-adquisición? | LNK/timestamps vs adquisición | Autopsy |
+| 4 | Quién instaló SO/apps | SOFTWARE (RegisteredOwner/InstallDate), SAM | regipy + Autopsy |
+| 5 | Timeline 20–24 abr 2024 | BAM, web, LNK, USB | Autopsy |
+| 6 | Credenciales / cifrado | SAM+SYSTEM, DPAPI de ken | extractor propio (regipy+pycryptodome) + dpapick3 + rockyou |
+| 7 | Actividad de red | memdump (netscan), navegador | Volatility 3 + Autopsy |
+| 8 | Herramientas/artefactos | Installed/Run Programs, procesos RAM | Volatility 3 + Autopsy |
 | 9 | Integridad / hashing | todos los indicios | FTK Imager + hashlib |
-| 10 | ¿Seguimiento a personas? | apps, RAM, navegador, archivos | Autopsy / Volatility |
-| 11 | ¿Exfiltración? | netscan, USBSTOR, apps cloud | Volatility, RegRipper |
-| 12 | Inconsistencias | comparación documental | análisis manual |
+| 10 | ¿Seguimiento a personas? | web (OSINT/Censys/Shodan), descargas | Autopsy + Volatility |
+| 11 | ¿Exfiltración? | netscan, USB, FTP/P2P/nube | Volatility + Autopsy |
+| 12 | Inconsistencias | comparación documental + registro | análisis manual + regipy |
 
-## Recomendación de inicio
+## Nota histórica (orden de ejecución seguido)
 
-**Empezar por la Fase 1 (Preservación / integridad)** porque:
-1. Es el primer paso correcto metodológicamente — nada se analiza sin verificar integridad.
-2. Vale **25%** de la calificación (Preservación).
-3. Se puede hacer **ya**, sin instalar nada (Python + FTK Imager que ya tienes).
-4. Deja la base documental (hashes certificados) para todo lo demás.
-
-Ver `02_PRESERVACION/hashes/INSTRUCCIONES_HASHING.md` para los pasos.
+El trabajo inició por la **Fase 1 (Preservación / integridad)** —primer paso metodológico
+obligatorio y 25% de la evaluación— y continuó por memoria, registro y disco, cerrando con
+credenciales/DPAPI, timeline y redacción. La secuencia y cada paso quedan registrados en
+`BITACORA_PERICIAL.md` (32 actividades). Estado de cierre en `CHECKLIST_ENTREGA.md`.
