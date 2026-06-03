@@ -39,8 +39,14 @@ Anexos · Firma y Credenciales — **todas redactadas**.
 - Control: `PLAN_MAESTRO.md`, `BITACORA_PERICIAL.md` (30 actividades)
 
 ## 4. Sustento normativo (20%) ✅
-NIST SP 800-86 · ISO/IEC 27037/27041/27042 · INTERPOL · SWGDE/ENFSI · CNPP · LFPDPPP · **2 papers**
-(Quick & Choo 2014; Case & Richard 2017).
+**Las 8 referencias obligatorias están citadas Y mapeadas** a dónde se aplican (informe §3.1):
+- ✅ Guía del Primer Respondiente — INTERPOL
+- ✅ **NIST SP 800-86** *(la solicitud dice "800-80" — es un typo; la norma forense es la 800-86)*
+- ✅ ISO/IEC 27037 · ✅ 27041 · ✅ 27042
+- ✅ Código Nacional de Procedimientos Penales (arts. 227–228)
+- ✅ LFPDPPP
+- ✅ **3 papers** (mín. 2): Quick & Choo 2014; Case & Richard 2017; **Bursztein, Picod & Audebert 2010**
+  (recuperación offline de credenciales/DPAPI — directamente ligado a §7.7).
 
 ## 5. Requisitos de entrega
 - [ ] **Informe final en PDF** (`informe_pericial.md` → PDF) — *en proceso*

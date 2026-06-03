@@ -93,6 +93,22 @@ procesal. Los hallazgos se sustentan en evidencia verificable y reproducible (An
   cuando el antivirus bloqueó una utilidad estándar (impacket), se sustituyó por un script propio
   auditable en lugar de crear exclusiones (ver §7.7).
 
+### 3.1 Marco normativo y su aplicación
+
+Cada referencia obligatoria se aplica de forma concreta en este peritaje:
+
+| Referencia | Cómo/dónde se aplica en este caso |
+|---|---|
+| **Guía del Primer Respondiente — INTERPOL** | Recepción, identificación e inventario inicial de indicios y manejo sin alteración (Fase 1, §4 y `01_IDENTIFICACION/informe_preliminar.md`). |
+| **NIST SP 800-86** *(la solicitud cita "800-80"; la norma forense vigente es la **SP 800-86**, "Guide to Integrating Forensic Techniques into Incident Response")* | Marco de fases Identificación→Preservación→Recolección→Análisis→Reporte (§3); *hashing* de integridad (§7.1); análisis de memoria (§7.7–7.8). |
+| **ISO/IEC 27037:2012** | Adquisición y **preservación**: trabajo sobre copias, originales en solo lectura, verificación por hash y continuidad de custodia (§5, §7.1, `05_CUSTODIA/`). |
+| **ISO/IEC 27041** | **Idoneidad y reproducibilidad** del proceso: métodos validados, scripts documentados y bitácora trazable (§3, `BITACORA_PERICIAL.md`). |
+| **ISO/IEC 27042** | **Análisis e interpretación**: hipótesis falsables, separación hecho/interpretación e interpretación reservada cuando no es concluyente (§6, §7, §9). |
+| **Código Nacional de Procedimientos Penales** (arts. 227–228) | Cadena de custodia y **mismidad** de la evidencia; observaciones de custodia (§5, §7.12, `05_CUSTODIA/`). |
+| **LFPDPPP** | Valoración legal del **acopio de datos personales de terceros** (nóminas/personal) hallado (§7.10) y recomendación asociada (§10). |
+
+_Las referencias completas y los artículos científicos se listan al final del documento._
+
 ---
 
 ## 4. Descripción de los Indicios
@@ -642,10 +658,17 @@ la firma electrónica avanzada y la constancia de idoneidad profesional se adjun
 - **Código Nacional de Procedimientos Penales** (México) — arts. sobre cadena de custodia (227–228).
 - **Ley Federal de Protección de Datos Personales en Posesión de los Particulares** (LFPDPPP).
 
-**Artículos científicos (≥2):**
+**Artículos científicos (≥2; se incluyen 3, cada uno aplicado a una parte del análisis):**
 - Quick, D. & Choo, K-K. R. (2014). *Impacts of increasing volume of digital forensic data: A survey
   and future research challenges*. **Digital Investigation**, 11(4), 273–294.
+  → *Sustenta el enfoque ante el gran volumen (imagen de ~465 GiB, memoria de 9 GB) y el uso de
+  triage/exportaciones dirigidas (§3, §7).*
 - Case, A. & Richard III, G. G. (2017). *Memory forensics: The path forward*. **Digital
   Investigation**, 20, 23–33.
+  → *Fundamenta el análisis del volcado de memoria con Volatility 3 (§7.7, §7.8, §7.9).*
+- Bursztein, E., Picod, J-M. & Audebert, R. (2010). *Recovering Windows Secrets and EFS Certificates
+  Offline*. **USENIX WOOT '10** (Workshop on Offensive Technologies).
+  → *Fundamenta la recuperación **offline** de credenciales: extracción de hashes del SAM con la
+  SysKey/bootkey y descifrado de secretos protegidos por **DPAPI** (§7.7).*
 - _(Opcional adicional)_ Carrier, B. (2003). *Defining digital forensic examination and analysis
   tools using abstraction layers*. **International Journal of Digital Evidence**, 1(4).
