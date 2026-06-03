@@ -20,6 +20,9 @@
 *.tmp
 ~$*
 
+# Temporales de la extensión Markdown PDF (no son entregable; los PDF finales sí se suben)
+*_tmp.html
+
 # ───────────────────────────────────────────────────────────────
 # Caso de Autopsy — base de datos pesada, NO se sube a GitHub.
 # Solo versionamos los reportes/CSV exportados manualmente.
