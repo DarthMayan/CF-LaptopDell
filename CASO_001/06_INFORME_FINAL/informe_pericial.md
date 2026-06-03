@@ -1,9 +1,9 @@
 # INFORME PERICIAL EN INFORMÁTICA FORENSE
 ### Caso 24042024-001-Pavana-Hidalgo
 
-> **Documento de trabajo (borrador).** Se redacta en Markdown y se exportará a
-> **PDF** para la entrega final (requisito). Las secciones se completan conforme
-> avanza el análisis; lo marcado con _[pendiente]_ se llena con hallazgos verificados.
+> **Informe completo (contenido).** Redactado en Markdown; **pendiente de exportar a PDF**
+> para la entrega final y de **firma/credenciales** del perito. Todas las secciones de análisis
+> y conclusiones están redactadas con hallazgos verificables y referencias cruzadas a los Anexos.
 
 ---
 
@@ -13,38 +13,88 @@
 - **Entidad solicitante:** Fiscalía General del Estado — Dirección de Peritos y Ciencias Forenses
 - **Fiscal:** Lic. Alessandro Tapia Ochoa
 - **Perito:** Diego Morales Gómez — 0250015@up.edu.mx
-- **Fecha de emisión:** _[pendiente]_
+- **Fecha de emisión:** 2 de junio de 2026
 - _(Imagen corporativa / logo)_
 
 ---
 
 ## 1. Resumen Ejecutivo
-_[pendiente — síntesis de hallazgos, propósito y conclusiones principales, en lenguaje accesible]_
+
+A solicitud de la Fiscalía General del Estado se realizó el análisis forense de los indicios
+obtenidos de un equipo de cómputo (laptop) relacionado con el caso **24042024-001-Pavana-Hidalgo**:
+una **imagen de disco** (EnCase E01), un **volcado de memoria RAM** y un **triage de registro** de
+Windows. El análisis se condujo conforme a NIST SP 800-86 e ISO/IEC 27037/27041/27042, trabajando
+sobre copias y certificando la integridad de toda la evidencia.
+
+**Integridad:** verificada al 100% — la imagen de disco coincide (MD5/SHA-1 *Match*, sin sectores
+defectuosos) y los nueve indicios crudos (memoria + hives) dieron **PASS** por triple algoritmo.
+
+**Equipo:** laptop con **Windows 10 Pro 22H2**, hostname **DESKTOP-2TQHS9Q**, usuario **ken**;
+el sistema fue **instalado/preparado el 21 de abril de 2024**, justo al inicio del periodo investigado.
+
+**Conclusión principal:** entre el **21 y el 23 de abril de 2024**, el usuario `ken` utilizó el
+equipo para **actividades de reconocimiento e inteligencia y para la recopilación masiva de datos
+personales de terceros**. En concreto se evidenció: instalación y uso de herramientas de
+**escaneo/pentesting** (Nmap, Parrot Security en VirtualBox, adaptador WiFi USB, material de
+*wireless pentesting*); **reconocimiento OSINT** (uso de Censys para investigar un host con RDP
+expuesto, 192.100.201.235); y la **descarga dirigida de decenas de archivos de nómina y personal**
+desde portales gubernamentales (`.gob.mx` y otros), almacenados localmente. Se confirmó la presencia
+y uso de **múltiples vectores de exfiltración** (varias memorias USB, cliente FTP FileZilla, P2P
+uTorrent, OneDrive) y de **canales de anonimización** (Tor y VPN). Se recuperaron además las
+credenciales (hashes NT) de las cuentas locales.
+
+Finalmente, se identificaron **inconsistencias en la cadena de custodia** y un hallazgo relevante:
+en la propia imagen quedó registrada **actividad de la unidad de destino del perito sobre el sistema
+en vivo durante la recolección** (23-abr 10:12–10:13), lo que debe valorarse para la integridad
+procesal. Los hallazgos se sustentan en evidencia verificable y reproducible (Anexos).
 
 ---
 
 ## 2. Introducción
-- **Contexto del caso:** _[pendiente]_
-- **Objetivos del peritaje:** ver §5.
-- **Consideraciones para evitar sesgos:** análisis basado solo en evidencia verificable; hipótesis falsables; cadena de custodia documentada; trabajo sobre copias.
+
+- **Contexto del caso:** La Fiscalía General del Estado, en el marco de la investigación
+  **24042024-001-Pavana-Hidalgo**, remitió para análisis pericial los indicios extraídos de una
+  laptop asegurada. Se sospecha que el equipo pudo emplearse para **seguimiento de personas** y para
+  la **extracción/transmisión de información**. El presente dictamen establece, con base técnica, los
+  hechos relevantes para el esclarecimiento.
+- **Objetivos del peritaje:** se reproducen íntegros en §5 (12 objetivos).
+- **Consideraciones para evitar sesgos:** el análisis se basa exclusivamente en evidencia
+  verificable; las hipótesis se formulan de manera falsable; se documenta toda acción en bitácora
+  (`BITACORA_PERICIAL.md`); se trabaja sobre copias con los originales en solo lectura; y se
+  distingue explícitamente entre **hecho técnico** e **interpretación**, reservando esta última
+  cuando la evidencia no es concluyente.
+- **Glosario breve:** *hash* (huella criptográfica de integridad); *OSINT* (inteligencia de fuentes
+  abiertas); *DPAPI* (cifrado de datos por usuario en Windows); *BAM* (Background Activity Moderator,
+  registro de ejecución de programas); *LNK* (archivo de acceso directo que registra accesos a
+  archivos/carpetas); *artefacto* (rastro digital con valor probatorio).
 
 ---
 
 ## 3. Metodología
 - **Marco:** NIST SP 800-86; ISO/IEC 27037 (adquisición/preservación), 27041 (metodología), 27042 (análisis e interpretación); Guía del Primer Respondiente (INTERPOL); SWGDE.
 - **Fases:** Identificación → Preservación → Recolección → Análisis → Reporte.
-- **Herramientas (con versión):** FTK Imager _[ver]_, Volatility 3 _[ver]_, Autopsy _[ver]_, RegRipper _[ver]_, Python 3.13.6, impacket _[ver]_. _(registrar versión exacta de cada una)_
-- **Preservación:** verificación por hashing (MD5/SHA-1/SHA-256); originales en solo lectura; trabajo sobre copias.
+- **Herramientas (con versión):**
+  - **FTK Imager 4.7.3.81** (Exterro) — verificación de integridad de la imagen E01.
+  - **Volatility 3 Framework 2.28.0** — análisis del volcado de memoria.
+  - **Autopsy 4.23.1** (The Sleuth Kit) — análisis de la imagen de disco.
+  - **Python 3.13.6** + `hashlib` (integridad), `regipy` (lectura de hives) y `pycryptodome`
+    (AES/DES) — verificación de hashes y extractor propio de credenciales.
+  - PowerShell `Get-FileHash` — respaldo visual de integridad.
+- **Preservación:** verificación por *hashing* (MD5/SHA-1/SHA-256) contra los valores documentados;
+  originales (`.E01`, `.mem`, hives) en **solo lectura**; todo el trabajo sobre copias.
+- **Nota:** se evitó deliberadamente desactivar los controles de seguridad del equipo de análisis;
+  cuando el antivirus bloqueó una utilidad estándar (impacket), se sustituyó por un script propio
+  auditable en lugar de crear exclusiones (ver §7.7).
 
 ---
 
 ## 4. Descripción de los Indicios
 | Indicio | Tipo | Detalle | Estado recepción |
 |---|---|---|---|
-| 001 | Memoria volátil | `memdump.mem`, 9.0 GB, RAM 8 GB | Íntegro _[verificar]_ |
-| 003 | Imagen de disco | `001-003-LAptop-Pavana T3.E01`, EnCase E01, ~40 GB | Íntegro _[verificar]_ |
-| — | Hives de registro | SAM, SECURITY, SYSTEM, SOFTWARE, DEFAULT, NTUSER/UsrClass (ken, Default) | Íntegro _[verificar]_ |
-| — | Disco origen | Seagate ST950042 0AS, S/N 5VJ8Z5ZN | Documental |
+| 001 | Memoria volátil | `memdump.mem`, 9.0 GB, RAM 8 GB | ✅ Íntegro (PASS, §7.1) |
+| 003 | Imagen de disco | `001-003-LAptop-Pavana T3.E01`, EnCase E01 (~465 GiB lógicos) | ✅ Íntegro (Match, §7.1) |
+| — | Hives de registro | SAM, SECURITY, SYSTEM, SOFTWARE, DEFAULT, NTUSER/UsrClass (ken, Default) | ✅ Íntegros (9/9 PASS) |
+| — | Disco origen | Seagate ST950042 0AS, S/N 5VJ8Z5ZN | Documental (custodia) |
 
 ---
 
@@ -65,8 +115,27 @@ _[pendiente — síntesis de hallazgos, propósito y conclusiones principales, e
 ---
 
 ## 6. Hipótesis
-- **General:** _[pendiente — formular de forma falsable]_
-- **De apoyo:** _[pendiente]_
+
+Formuladas de manera **falsable** (pueden ser refutadas por la evidencia):
+
+- **Hipótesis general (H0):** *El equipo `DESKTOP-2TQHS9Q` (usuario ken) fue utilizado, entre el 21
+  y el 23 de abril de 2024, para actividades de reconocimiento/inteligencia y para la recopilación
+  de datos personales de terceros, contando con medios para su exfiltración.*
+  - *Sería refutada* si no existieran herramientas de reconocimiento, ni recopilación dirigida de
+    datos de personas, ni vectores de salida de información.
+- **Hipótesis de apoyo:**
+  - **H1 (herramientas):** se instalaron y usaron utilidades de escaneo/pentesting (Nmap, Parrot
+    Security, adaptador WiFi). *Refutable* si no hubiera rastros de instalación/ejecución.
+  - **H2 (objetivo de reconocimiento):** se investigó al menos un host/objetivo concreto mediante
+    OSINT. *Refutable* si no hubiera consultas dirigidas (Censys/buscadores) a un objetivo.
+  - **H3 (acopio de datos personales):** se descargaron de forma dirigida documentos con datos de
+    personas. *Refutable* si las descargas fueran aleatorias o sin relación con datos personales.
+  - **H4 (capacidad de exfiltración):** existían y se usaron medios para extraer/transmitir
+    información. *Refutable* si no hubiera medios USB, FTP, P2P, nube ni canales anonimizados.
+  - **H5 (anonimización):** se emplearon mecanismos para ocultar el origen del tráfico. *Refutable*
+    si no hubiera Tor/VPN activos.
+
+> Cada hipótesis se contrasta con los hallazgos en §8 y se resuelve en §9.
 
 ---
 
@@ -142,8 +211,8 @@ NIST SP 800-86 e ISO/IEC 27037. **Objetivo 9 cubierto.**
 | Directorio del sistema | C:\Windows |
 
 > El disco origen, según cadena de custodia, es **Seagate ST950042 0AS, S/N 5VJ8Z5ZN**
-> (ver §7.3). La fecha de instalación del SO se confirmará con el registro (SOFTWARE
-> InstallDate) _[pendiente]_.
+> (ver §7.3). La edición exacta y la **fecha de instalación del SO (2024-04-21)** se detallan
+> en §7.4 a partir del hive SOFTWARE.
 
 _Fuentes: `02_PRESERVACION/memoria/01_info.txt` y Autopsy OS Information
 (`03_ANALISIS/autopsy_export/27_os_info.csv`)._
@@ -178,8 +247,25 @@ _Fuente: Autopsy 4.23.1, Data Sources → tabla de volúmenes._
   rastro de un usuario de **otra máquina o dominio**. _Línea de investigación abierta:_ mapear
   a qué perfil/archivos pertenece (relevante para obj. 4, 10 y 12).
 
-> El titular de la instalación (RegisteredOwner), fecha de instalación y nombre de equipo se
-> completarán con el registro (SOFTWARE/SYSTEM) vía Autopsy → OS Information _[pendiente]_.
+**Titular e instalación del SO (hive SOFTWARE → `Microsoft\Windows NT\CurrentVersion`):**
+
+| Dato | Valor |
+|---|---|
+| Producto / edición | **Windows 10 Pro** (Professional), **22H2** (build **19045**) |
+| **Titular registrado (RegisteredOwner)** | **ken** |
+| Organización registrada | (vacía / "0") |
+| Product ID | 00331-10000-00001-AA087 |
+| **Fecha de instalación (InstallDate)** | epoch 1713758775 = **2024-04-22 04:06:15 UTC** = **2024-04-21 22:06 (UTC−6)** |
+
+**Interpretación (obj. 4):** el sistema operativo actual fue **instalado/configurado el
+2024-04-21**, al inicio mismo de la ventana de actividad (21–24 abr), bajo el titular **ken**.
+Esto indica que el equipo fue **preparado expresamente** en ese momento (no un equipo de uso
+prolongado previo), coherente con que las herramientas (Nmap, VirtualBox, VPN, navegadores) se
+instalaran ese mismo 21–23 de abril (§7.9).
+
+> *Nota de versión:* el registro reporta **build 19045 (22H2)**; Volatility (`windows.info`)
+> reporta el identificador base **15.19041** del kernel 2004. Ambos corresponden a Windows 10;
+> se toma como autoritativa la del registro (22H2/19045). _Fuente: hive SOFTWARE._
 ### 7.5 Actividad durante/posterior a la adquisición (obj. 3)
 
 **Hallazgo crítico (artefactos LNK / Recent Documents, Autopsy).** Dentro de la imagen del
@@ -393,26 +479,84 @@ sin alterar la evidencia._
 ---
 
 ## 8. Hallazgos Clave
-_[pendiente — evidencia relevante y su relación con cada hipótesis]_
+
+Relación de la evidencia con cada hipótesis (§6):
+
+| # | Hallazgo clave | Evidencia (fuente) | Hipótesis |
+|---|---|---|---|
+| HC-1 | Integridad de toda la evidencia certificada (E01 *Match*; 9/9 hives PASS) | §7.1, Anexo A | — (base) |
+| HC-2 | Equipo Windows 10 Pro 22H2, hostname DESKTOP-2TQHS9Q, usuario **ken**, **instalado 21-abr-2024** | §7.2, §7.4 | contexto |
+| HC-3 | Instalación/uso de **Nmap+Npcap, Parrot Security (VM), adaptador WiFi USB**, material de wireless pentesting | §7.9, `24/25_*.csv` | **H1** ✔ |
+| HC-4 | **Reconocimiento OSINT con Censys** del host **192.100.201.235** y su **RDP/3389** | §7.10, `21_web_history.csv` | **H2** ✔ |
+| HC-5 | **Descarga dirigida de decenas de archivos de nómina/personal** de portales `.gob.mx` (operadores `filetype:`) | §7.10, `22_web_downloads.csv` | **H3** ✔ |
+| HC-6 | **Vectores de exfiltración** presentes y usados: 3 memorias USB, FileZilla FTP, uTorrent, OneDrive | §7.11, `23_usb_devices.csv` | **H4** ✔ |
+| HC-7 | **Anonimización** activa: Tor (proceso + Brave) y RAV VPN | §7.8, §7.9 | **H5** ✔ |
+| HC-8 | **RDP entrante** establecido desde 192.168.145.65 | §7.8, `06_netscan.txt` | H2/H4 |
+| HC-9 | Credenciales (hashes NT) recuperadas, incl. `ken` | §7.7, `15_hashes_sam.txt` | — |
+| HC-10 | **Actividad peri-adquisición** (carpeta del caso en D: navegada en vivo 23-abr 10:12–10:13) + 7 inconsistencias de custodia | §7.5, §7.12 | obj. 3/12 |
+
+> Las cinco hipótesis de apoyo (H1–H5) quedan **corroboradas** por evidencia concurrente de
+> memoria, registro y disco, lo que sustenta la hipótesis general H0.
 
 ---
 
 ## 9. Conclusiones
-_[pendiente — interpretación objetiva, simétrica con las hipótesis, con limitaciones del análisis]_
+
+Con base en la evidencia verificable y reproducible analizada, y de forma **simétrica** con las
+hipótesis planteadas:
+
+1. **(H0 — confirmada)** El equipo `DESKTOP-2TQHS9Q`, bajo el usuario **ken**, fue empleado entre el
+   **21 y el 23 de abril de 2024** para **reconocimiento técnico/OSINT** y para la **recopilación
+   dirigida de datos personales de terceros** (archivos de nómina y personal de múltiples entidades
+   gubernamentales), disponiendo de **medios para su exfiltración**.
+2. **(Obj. 1, 2, 4)** Se identificó el equipo (Windows 10 Pro 22H2, hostname DESKTOP-2TQHS9Q,
+   titular ken) y el disco (Seagate ST950042, S/N 5VJ8Z5ZN); el SO fue **instalado el 21-abr-2024**,
+   indicando un equipo **preparado para la actividad**, no de uso prolongado previo.
+3. **(Obj. 6, 7, 8)** Se recuperaron las credenciales locales (hashes NT); se reconstruyó la
+   actividad de red (Tor, P2P, **RDP entrante**) y se identificaron las herramientas (Nmap, Parrot
+   Security, VirtualBox, FileZilla, RAV VPN, uTorrent, adaptador WiFi USB).
+4. **(Obj. 9)** La integridad de **todos** los indicios quedó **certificada** (NIST SP 800-86 /
+   ISO 27037).
+5. **(Obj. 3, 12)** Se documentó **actividad de la unidad de destino del perito sobre el sistema en
+   vivo durante la recolección** y **siete inconsistencias** en la cadena de custodia; estos puntos
+   **no invalidan** la integridad técnica verificada de las copias, pero **deben valorarse** en sede
+   procesal.
+
+**Limitaciones del análisis:**
+- No se logró **descifrar** la contraseña de `ken` con diccionario básico (la *recuperación del
+  hash* sí se cumplió); un ataque mayor (hashcat + rockyou) queda como vía abierta.
+- La **transferencia consumada** de un archivo concreto hacia un destino externo no se demostró de
+  forma directa; sí la **capacidad, preparación y acopio** (se requeriría correlación con logs de
+  FileZilla, contenido de los USB físicos o captura de red).
+- El **segundo SID de usuario** ajeno al equipo queda como línea de investigación.
+- La ingesta de Autopsy se interrumpió por una excepción no fatal de la herramienta; los artefactos
+  analizados son válidos, aunque algunas categorías podrían ampliarse re-procesando.
 
 ---
 
-## 10. Recomendaciones (opcional)
-_[pendiente]_
+## 10. Recomendaciones
+
+1. **Asegurar y analizar los medios USB físicos** referidos (Lexar, SanDisk, Verbatim, Ventoy) para
+   confirmar exfiltración consumada y el contenido de `vpn.txt`.
+2. **Solicitar/correlacionar** registros de red perimetral y del host `192.100.201.235` para
+   esclarecer el objetivo del reconocimiento (RDP).
+3. **Subsanar la cadena de custodia** (fechas, hashes de la copia en blanco) y dejar constancia
+   formal de la actividad peri-adquisición; en futuras diligencias, adquirir **sin interacción con
+   el sistema en vivo** o documentarla con detalle.
+4. Realizar **ataque de descifrado** (hashcat) sobre el hash de `ken` y **descifrado DPAPI** para
+   recuperar credenciales guardadas en navegador.
+5. Valorar implicaciones de **protección de datos personales** (LFPDPPP) por el acopio de PII de
+   terceros.
 
 ---
 
 ## 11. Anexos
-- A. Reporte de hashes — verificación de integridad con triple algoritmo (MD5/SHA-1/SHA-256), 9/9 PASS. Archivo: `02_PRESERVACION/hashes/reporte_integridad.md`.
-- B. Salidas de Volatility (`02_PRESERVACION/`).
-- C. Capturas (`04_EVIDENCIA/capturas/`).
-- D. Bitácora pericial completa (`BITACORA_PERICIAL.md`).
-- E. Cadena de custodia (`05_CUSTODIA/`).
+- A. Reporte de hashes — integridad triple algoritmo (MD5/SHA-1/SHA-256), 9/9 PASS: `02_PRESERVACION/hashes/reporte_integridad.md`; capturas en `04_EVIDENCIA/capturas/`.
+- B. Salidas de Volatility 3 (`02_PRESERVACION/{memoria,procesos,red}/`): `01_info`, `02_pslist`, `03_pstree`, `05_cmdline`, `06_netscan`, `07_cmdscan`, `08_consoles`.
+- C. Exportaciones de Autopsy (`03_ANALISIS/autopsy_export/`): `21_web_history`, `22_web_downloads`, `23_usb_devices`, `24_installed_programs`, `25_run_programs`, `26_recent_documents`, `27_os_info` (CSV).
+- D. Extracción de credenciales (`03_ANALISIS/correlacion/`): `extraer_hashes_sam.py` + `15_hashes_sam.txt`.
+- E. Bitácora pericial completa: `BITACORA_PERICIAL.md` (23 actividades fechadas).
+- F. Cadena de custodia: `24042024_001-003-Pavana-Hidalgo-RCDC.pdf`.
 
 ---
 
@@ -425,9 +569,22 @@ _[pendiente]_
 ---
 
 ## Referencias normativas y científicas
-- Guía del Primer Respondiente — INTERPOL.
-- NIST SP 800-86 — *Guide to Integrating Forensic Techniques into Incident Response*.
-- ISO/IEC 27037:2012; ISO/IEC 27041; ISO/IEC 27042.
-- Código Nacional de Procedimientos Penales (México).
-- Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
-- _[≥2 papers/artículos científicos — pendientes de seleccionar]_
+
+**Normativas y guías:**
+- INTERPOL (2021). *Guidelines for Digital Forensics First Responders*.
+- Kent, K., Chevalier, S., Grance, T. & Dang, H. (2006). **NIST SP 800-86** — *Guide to Integrating
+  Forensic Techniques into Incident Response*. National Institute of Standards and Technology.
+- **ISO/IEC 27037:2012** — *Guidelines for identification, collection, acquisition and preservation
+  of digital evidence*; **ISO/IEC 27041:2015**; **ISO/IEC 27042:2015**.
+- SWGDE (2018). *Best Practices for Computer Forensic Acquisitions*; ENFSI (2015). *Best Practice
+  Manual for the Forensic Examination of Digital Technology*.
+- **Código Nacional de Procedimientos Penales** (México) — arts. sobre cadena de custodia (227–228).
+- **Ley Federal de Protección de Datos Personales en Posesión de los Particulares** (LFPDPPP).
+
+**Artículos científicos (≥2):**
+- Quick, D. & Choo, K-K. R. (2014). *Impacts of increasing volume of digital forensic data: A survey
+  and future research challenges*. **Digital Investigation**, 11(4), 273–294.
+- Case, A. & Richard III, G. G. (2017). *Memory forensics: The path forward*. **Digital
+  Investigation**, 20, 23–33.
+- _(Opcional adicional)_ Carrier, B. (2003). *Defining digital forensic examination and analysis
+  tools using abstraction layers*. **International Journal of Digital Evidence**, 1(4).
