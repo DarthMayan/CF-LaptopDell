@@ -111,49 +111,61 @@ _Las referencias completas y los artículos científicos se listan al final del 
 
 ### 3.2 Fundamento jurídico y límites legales
 
-El peritaje se realiza dentro de un marco legal que **habilita** la actuación pero también
-**impone límites**, particularmente en materia de datos personales y comunicaciones privadas.
+México no cuenta con una ley única de informática forense, sino con un **marco normativo integrado**
+(constitucional, procesal, penal y técnico) que regula la identificación, preservación, análisis y
+presentación de la evidencia digital, garantizando su integridad, autenticidad y admisibilidad, y el
+respeto a los derechos fundamentales (privacidad y debido proceso).
 
 **a) Base legal de la actuación pericial.**
-- **Art. 21 Constitucional:** la investigación de los delitos corresponde al Ministerio Público;
-  la Fiscalía instruyó este peritaje mediante oficio (causa del dictamen).
-- **CNPP, Art. 272** (prueba pericial): faculta la intervención de peritos cuando se requieren
-  conocimientos especiales; el perito actúa por designación de la autoridad.
-- **CNPP, Arts. 227 y 228** (cadena de custodia): obligan a preservar la mismidad e integridad de
-  los indicios; se cumple con el trabajo sobre copias, solo lectura y verificación por hash (§7.1).
+- **Art. 21 Constitucional:** la investigación de los delitos corresponde al Ministerio Público; la
+  Fiscalía instruyó este peritaje mediante oficio.
+- **CNPP, Art. 267, párr. 2:** *"Será materia de inspección todo aquello que pueda ser directamente
+  apreciado por los sentidos… la policía se hará asistir por peritos"* — habilita la intervención del perito.
+- **CNPP, prueba pericial (arts. 259–275):** el análisis es admisible si lo realiza un perito con
+  **metodología científica reproducible** y dictamen fundamentado.
+- **CNPP, prueba documental y material (arts. 380–387):** admite los **soportes electrónicos** como
+  evidencia digital.
 
-**b) Límites: datos personales y comunicaciones privadas.**
-- **Art. 16 Constitucional:** protege los **datos personales** y la **inviolabilidad de las
-  comunicaciones privadas**; su intervención requiere **autorización judicial** federal.
-- **CNPP, Art. 252** (actos de investigación con control judicial previo): la intervención de
-  comunicaciones privadas y otros actos que afectan derechos requieren autorización del Juez de
-  control.
-- **Implicación para este caso:** el análisis se practicó sobre un **dispositivo asegurado
-  lícitamente** y por **instrucción ministerial**, limitándose a los fines de la investigación. El
-  acceso a **contenido de comunicaciones privadas** (p. ej., mensajería) **excedería** el alcance
-  del presente dictamen sin la correspondiente **autorización judicial**, por lo que **no** se
-  realizó ese tipo de intervención; el dictamen se basa en metadatos, artefactos y archivos
-  presentes en el indicio.
+**b) Preservación, integridad y cadena de custodia.**
+- **CNPP, Arts. 227–228 (cadena de custodia)** y **Art. 260** (fijación de indicios mediante
+  **imágenes forenses verificadas con hash MD5/SHA-256**): documentación ininterrumpida y no
+  modificabilidad de la evidencia original.
+- **CNPP, Art. 212** (autenticidad e integridad de documentos electrónicos): exige demostrar la **no
+  alteración** mediante funciones hash e imágenes bit a bit — cumplido en §7.1.
+- **Normas técnicas mexicanas:** **NMX-I-27037-NYCE-2015** (≡ ISO/IEC 27037) y **NMX-I-289-NYCE-2016**
+  (metodología de análisis forense), alineadas con **ISO/IEC 27041 y 27042**; su observancia es
+  criterio de valoración judicial sobre la idoneidad técnica del proceso.
 
-**c) Tratamiento de los datos personales hallados.**
+**c) Límite: comunicaciones privadas y datos almacenados en el dispositivo.**
+- **Art. 16 Constitucional (párr. 12–13):** las **comunicaciones privadas son inviolables**; su
+  intervención exige **mandamiento judicial** escrito, fundado y motivado (salvo aportación
+  voluntaria de un participante). La evidencia obtenida ilícitamente se **excluye** (doctrina de
+  exclusión, reforzada por la SCJN).
+- **CNPP, Arts. 251–252 y 291–292:** la intervención de comunicaciones privadas requiere
+  **autorización del Juez de control**, con solicitud fundada y motivada (persona, lugar, tipo y
+  duración).
+- **Jurisprudencia SCJN — Contradicción de tesis 194/2012:** la inviolabilidad de las comunicaciones
+  privadas **se extiende a los datos almacenados** en un dispositivo asegurado a una persona sujeta a
+  investigación; y **Tesis 1a./J. 9/2017** (requisitos constitucionales de la intervención).
+- **Implicación para este caso:** el dictamen se practicó sobre un **dispositivo asegurado
+  lícitamente** y por **instrucción ministerial**, limitándose a **artefactos del sistema, metadatos y
+  archivos** (registro, ejecución de programas, historial web, USB, descargas). **No** se accedió al
+  **contenido de comunicaciones privadas** (mensajería/correo), lo que habría requerido autorización
+  judicial; de requerirse, debe canalizarse al MP / Juez de control.
+
+**d) Tratamiento de los datos personales hallados.**
 - Los archivos de **nómina/personal** (§7.10) contienen **datos personales de terceros** (nombres,
-  percepciones, cuentas). Su tratamiento por la autoridad debe observar los principios de
-  **licitud, finalidad, proporcionalidad y confidencialidad**.
-- Marco: **LFPDPPP** (protección de datos en posesión de **particulares** — relevante para la
-  conducta del usuario investigado); el tratamiento por la **autoridad** se rige además por la
-  **Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados (LGPDPPSO)**.
-  El equipo pericial trata estos datos **solo** para los fines del peritaje y bajo reserva.
+  percepciones, cuentas). Su tratamiento por la autoridad debe observar **licitud, finalidad,
+  proporcionalidad y confidencialidad** (marco de protección de datos personales; **LFPDPPP** para
+  particulares). El equipo pericial los trata **solo** para los fines del peritaje y bajo reserva.
 
-**d) Posible relevancia penal de la conducta analizada** (marco de referencia, **sin prejuzgar**;
-la calificación jurídica corresponde al MP y al órgano jurisdiccional):
-- **Acceso ilícito a sistemas y equipos de informática** — Código Penal Federal, **arts. 211 bis 1
-  a 211 bis 7** (uso de Nmap/Shodan/Censys para reconocer hosts ajenos; §7.10).
-- **Tratamiento indebido de datos personales** — LFPDPPP (delitos en materia de datos, **arts. 67
-  a 69**) por el acopio no consentido de PII de terceros (§7.10–7.11).
-
-> ⚠️ **Nota de validación:** la numeración de artículos debe cotejarse con el **texto vigente** de
-> cada ordenamiento a la fecha del dictamen. _(Pendiente confirmar redacción exacta de CNPP Art. 252
-> y de los delitos LFPDPPP arts. 67–69.)_
+**e) Posible relevancia penal de la conducta analizada** (marco de referencia, **sin prejuzgar**; la
+calificación jurídica corresponde al MP y al órgano jurisdiccional):
+- **Código Penal Federal, Art. 211 Bis** (acceso ilícito a sistemas y equipos de informática): uso de
+  Nmap/Shodan/Censys para reconocer hosts ajenos (§7.10).
+- **Conductas TIC tipificadas (CPF):** *obtener o copiar información de sistemas sin autorización del
+  titular* y *robo/difusión de información personal sin consentimiento* — encuadrables por el acopio
+  de PII de terceros (§7.10–7.11); también revelación de secretos y fraudes electrónicos.
 
 ---
 
@@ -253,7 +265,8 @@ Evidencia: captura `04_EVIDENCIA/capturas/Captura de pantalla 2026-06-02 174510.
 **Conclusión del objetivo 9.** La integridad de **todos** los indicios queda **certificada**:
 imagen de disco E01 (MD5/SHA-1 Match, sin bad blocks), memoria volátil y 8 hives de registro
 (9/9 PASS por triple algoritmo MD5/SHA-1/SHA-256). Método: hashing criptográfico conforme a
-NIST SP 800-86 e ISO/IEC 27037. **Objetivo 9 cubierto.**
+NIST SP 800-86, ISO/IEC 27037 y **CNPP arts. 212 y 260** (autenticidad e integridad mediante hash e
+imagen forense verificada). **Objetivo 9 cubierto.**
 ### 7.2 Identificación de equipo y SO (obj. 1)
 
 **Sistema operativo (vía memoria, Volatility 3 `windows.info`).** El análisis del volcado
@@ -406,10 +419,11 @@ _Fuentes: `25_run_programs.csv`, `22_web_downloads.csv`, `21_web_history.csv`, `
 > consultas a las IPs objetivo, descargas de nómina, etc.). Ver Anexo.
 ### 7.7 Credenciales y cifrado / DPAPI (obj. 6)
 
-> **Encuadre jurídico (§3.2).** La recuperación de credenciales se realiza por **instrucción
-> ministerial** (CNPP Art. 272) sobre un dispositivo asegurado lícitamente, al amparo del objetivo 6
-> del oficio. El acceso se limita a los fines de la investigación; **no** se intervinieron
-> comunicaciones privadas (que exigiría autorización judicial, Art. 16 Constitucional / CNPP Art. 252).
+> **Encuadre jurídico (§3.2).** La recuperación de credenciales se realiza como **prueba pericial**
+> (CNPP arts. 259–275) por **instrucción ministerial**, sobre un dispositivo asegurado lícitamente y
+> al amparo del objetivo 6 del oficio. **No** se accedió al contenido de comunicaciones privadas
+> —protegido aun en dispositivos asegurados (Art. 16 Constitucional; SCJN, Contradicción de tesis
+> 194/2012)— lo que exigiría autorización judicial (CNPP arts. 291–292).
 
 **Técnica empleada.** Extracción **offline** de los hashes NT desde los hives **SAM + SYSTEM**
 (integridad previamente certificada, §7.1). Procedimiento estándar: (1) cálculo del *bootkey*
@@ -553,11 +567,12 @@ La evidencia de disco muestra dos vertientes de actividad de inteligencia/recopi
 > de la autoridad, reservando su interpretación.
 
 > **Encuadre jurídico (§3.2).** El acopio dirigido de **datos personales de terceros** sin
-> consentimiento es contrario a los principios de la **LFPDPPP** (licitud y consentimiento, Art. 6)
-> y puede actualizar **tratamiento indebido de datos personales** (LFPDPPP, arts. 67–69). El
-> reconocimiento de hosts ajenos con Nmap/Shodan/Censys puede encuadrar en **acceso ilícito a
-> sistemas y equipos de informática** (CPF, arts. 211 bis 1 a 211 bis 7). _Marco de referencia, sin
-> prejuzgar; la calificación corresponde al MP/juez._
+> consentimiento contraviene los principios de **licitud y consentimiento** (LFPDPPP, Art. 6) y puede
+> encuadrar en conductas del **Código Penal Federal** (*obtener o copiar información de sistemas sin
+> autorización del titular*; *robo/difusión de información personal sin consentimiento*). El
+> reconocimiento de hosts ajenos con Nmap/Shodan/Censys puede actualizar **acceso ilícito a sistemas
+> y equipos de informática** (CPF, **Art. 211 Bis**). _Marco de referencia, sin prejuzgar; la
+> calificación corresponde al MP/juez._
 
 ### 7.11 Exfiltración / transmisión de información (obj. 11)
 
@@ -676,8 +691,9 @@ hipótesis planteadas:
    el sistema en vivo** o documentarla con detalle.
 4. Realizar **ataque de descifrado** (hashcat) sobre el hash de `ken` y **descifrado DPAPI** para
    recuperar credenciales guardadas en navegador.
-5. Valorar implicaciones de **protección de datos personales** (LFPDPPP / LGPDPPSO) por el acopio de
-   PII de terceros, y la posible relevancia penal (CPF arts. 211 bis; LFPDPPP arts. 67–69). Ver §3.2.
+5. Valorar implicaciones de **protección de datos personales** por el acopio de PII de terceros y la
+   posible relevancia penal (CPF **Art. 211 Bis**; obtención/copia de información sin autorización del
+   titular). Ver §3.2.
 6. **Resguardo y confidencialidad** de los datos personales de terceros contenidos en la evidencia:
    tratarlos solo para los fines de la investigación, con acceso restringido y bajo reserva.
 
@@ -724,15 +740,21 @@ la firma electrónica avanzada y la constancia de idoneidad profesional se adjun
   of digital evidence*; **ISO/IEC 27041:2015**; **ISO/IEC 27042:2015**.
 - SWGDE (2018). *Best Practices for Computer Forensic Acquisitions*; ENFSI (2015). *Best Practice
   Manual for the Forensic Examination of Digital Technology*.
-- **Constitución Política de los Estados Unidos Mexicanos** — Art. 16 (protección de datos
-  personales; inviolabilidad de comunicaciones privadas) y Art. 21 (investigación a cargo del MP).
-- **Código Nacional de Procedimientos Penales** — cadena de custodia (arts. 227–228), prueba
-  pericial (art. 272) y actos de investigación con control judicial (art. 252).
-- **Código Penal Federal** — acceso ilícito a sistemas y equipos de informática (arts. 211 bis 1 a 211 bis 7).
+- **Constitución Política de los Estados Unidos Mexicanos** — Art. 16 (inviolabilidad de las
+  comunicaciones privadas, párr. 12–13; protección de datos), Art. 20 (debido proceso / exclusión de
+  prueba ilícita) y Art. 21 (investigación a cargo del MP).
+- **Código Nacional de Procedimientos Penales** — inspección con auxilio de peritos (art. 267),
+  prueba pericial (arts. 259–275), cadena de custodia (arts. 227–228) y fijación con hash (art. 260),
+  autenticidad/integridad de documentos electrónicos (art. 212), intervención de comunicaciones
+  privadas (arts. 251–252, 291–292) y prueba documental/material electrónica (arts. 380–387).
+- **Código Penal Federal** — acceso ilícito a sistemas y equipos de informática (**Art. 211 Bis**);
+  obtención/copia de información sin autorización del titular; revelación de secretos y fraudes electrónicos.
 - **Ley Federal de Protección de Datos Personales en Posesión de los Particulares** (LFPDPPP) —
-  principios (art. 6) y delitos en materia de datos (arts. 67–69).
-- **Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados** (LGPDPPSO) —
-  tratamiento de datos personales por la autoridad.
+  principios de licitud y consentimiento (art. 6).
+- **Normas técnicas mexicanas:** NMX-I-27037-NYCE-2015 (≡ ISO/IEC 27037) y NMX-I-289-NYCE-2016.
+- **Jurisprudencia / criterios SCJN:** Contradicción de tesis 194/2012 (datos almacenados en
+  dispositivo asegurado); Tesis 1a./J. 9/2017 (requisitos de intervención); Manual de Prueba Pericial
+  Digital (SCJN); Guía Nacional de Cadena de Custodia de Evidencia Digital (FGR).
 
 **Artículos científicos (≥2; se incluyen 3, cada uno aplicado a una parte del análisis):**
 - Quick, D. & Choo, K-K. R. (2014). *Impacts of increasing volume of digital forensic data: A survey
