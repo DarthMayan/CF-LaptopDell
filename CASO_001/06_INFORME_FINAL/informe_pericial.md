@@ -262,6 +262,12 @@ algoritmos, **sin bad blocks**:
 
 Evidencia: captura `04_EVIDENCIA/capturas/Captura de pantalla 2026-06-02 174510.png`.
 
+> **Concordancia con la cadena de custodia:** estos valores **coinciden exactamente** con el
+> **hash del disco original** asentado en el RCDC (MD5 `6ace19abd1a8d25589be07d68e9a7bcc`,
+> SHA-1 `3b401352e1b6b60f73dd30dce97f12c85a2adae7`), confirmando que la imagen E01 reproduce
+> fielmente el disco origen. _(Los campos "HASH copia forense" del formato quedaron en blanco —
+> ver inconsistencia #4, §7.12—, pero el hash del disco original sí permite la verificación.)_
+
 **Conclusión del objetivo 9.** La integridad de **todos** los indicios queda **certificada**:
 imagen de disco E01 (MD5/SHA-1 Match, sin bad blocks), memoria volátil y 8 hives de registro
 (9/9 PASS por triple algoritmo MD5/SHA-1/SHA-256). Método: hashing criptográfico conforme a
