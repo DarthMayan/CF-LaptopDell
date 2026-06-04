@@ -672,11 +672,8 @@ hipótesis planteadas:
 - La **transferencia consumada** de un archivo concreto hacia un destino externo no se demostró de
   forma directa; sí la **capacidad, preparación y acopio** (se requeriría correlación con logs de
   FileZilla, contenido de los USB físicos —no aportados como indicio— o captura de red).
-- El **segundo SID de usuario** ajeno al equipo (`…-3933942852-…-1032`) **no figura en el ProfileList
-  ni en el SAM** del equipo; su presencia se explica por **propiedad de archivos originados en otro
-  sistema/usuario** — su mapeo fino queda como línea de investigación.
-- La ingesta de Autopsy se interrumpió por una excepción no fatal de la herramienta; los artefactos
-  analizados son válidos, aunque algunas categorías podrían ampliarse re-procesando.
+- La ingesta de Autopsy se interrumpió una vez por una excepción no fatal de la herramienta; se
+  relanzó y los artefactos analizados son válidos y completos para los fines del dictamen.
 
 ---
 
@@ -689,13 +686,13 @@ hipótesis planteadas:
 3. **Subsanar la cadena de custodia** (fechas, hashes de la copia en blanco) y dejar constancia
    formal de la actividad peri-adquisición; en futuras diligencias, adquirir **sin interacción con
    el sistema en vivo** o documentarla con detalle.
-4. Realizar **ataque de descifrado** (hashcat) sobre el hash de `ken` y **descifrado DPAPI** para
-   recuperar credenciales guardadas en navegador.
-5. Valorar implicaciones de **protección de datos personales** por el acopio de PII de terceros y la
+4. Valorar implicaciones de **protección de datos personales** por el acopio de PII de terceros y la
    posible relevancia penal (CPF **Art. 211 Bis**; obtención/copia de información sin autorización del
    titular). Ver §3.2.
-6. **Resguardo y confidencialidad** de los datos personales de terceros contenidos en la evidencia:
+5. **Resguardo y confidencialidad** de los datos personales de terceros contenidos en la evidencia:
    tratarlos solo para los fines de la investigación, con acceso restringido y bajo reserva.
+6. **Cotejar la numeración de los artículos** citados (§3.2) con el texto vigente de cada
+   ordenamiento a la fecha de emisión, dado que las leyes se reforman periódicamente.
 
 ---
 
@@ -705,7 +702,7 @@ hipótesis planteadas:
 - C. Exportaciones de Autopsy (`03_ANALISIS/autopsy_export/`): `21_web_history`, `22_web_downloads`, `23_usb_devices`, `24_installed_programs`, `25_run_programs`, `26_recent_documents`, `27_os_info`, `28_encryption_suspected` (CSV); **Timeline Snapshot** (`03_ANALISIS/timeline/timeline_autopsy_snapshot.png`).
 - C-bis. Descifrado DPAPI de navegador (`03_ANALISIS/correlacion/`): `descifrar_dpapi_navegador.py` + `16_credenciales_navegador.txt`.
 - D. Extracción de credenciales (`03_ANALISIS/correlacion/`): `extraer_hashes_sam.py` + `15_hashes_sam.txt`.
-- E. Bitácora pericial completa: `BITACORA_PERICIAL.md` (23 actividades fechadas).
+- E. Bitácora pericial completa: `BITACORA_PERICIAL.md` (33 actividades fechadas).
 - F. Cadena de custodia: `24042024_001-003-Pavana-Hidalgo-RCDC.pdf`.
 
 ---
